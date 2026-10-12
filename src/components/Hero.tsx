@@ -3,7 +3,7 @@ import SpotlightRevealHero from "./artwork/SpotlightRevealHero.tsx";
 import ImperialHeroArtwork from "./artwork/ImperialHeroArtwork.tsx";
 import ImperialEmblem from "./artwork/ImperialEmblem.tsx";
 import { useLiquidGlass } from "../hooks/useLiquidGlass.ts";
-import { ShieldCheck, Lock, CheckCircle2, ChevronDown } from "lucide-react";
+import { ShieldCheck, Scroll, CheckCircle2, ChevronDown } from "lucide-react";
 
 interface HeroProps {
   artVariant: "gold" | "marble" | "spotlight";
@@ -13,7 +13,7 @@ interface HeroProps {
 export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
   const [copiedAudit, setCopiedAudit] = useState(false);
 
-  // Initialize WebGL LiquidGlass library on the right-bottom card
+  // Initialize WebGL LiquidGlass library on the right-bottom card with exact user config
   useLiquidGlass({
     rootSelector: "#hero",
     glassSelector: ".liquid-glass-card",
@@ -37,7 +37,7 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
   });
 
   const handleCopyHash = () => {
-    navigator.clipboard?.writeText("0x7f4e89a...CHACHA20-POLY1305");
+    navigator.clipboard?.writeText("«إِنَّ العَدْلَ مِيزَانُ المُلُوكِ وَالحِكْمَةَ سِلَاحُ الفُرْسَان»");
     setCopiedAudit(true);
     setTimeout(() => setCopiedAudit(false), 2200);
   };
@@ -46,7 +46,7 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
     <section
       id="hero"
       className="relative min-h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-12"
-      aria-label="Legion Imperial Hero"
+      aria-label="الواجهة الإمبراطورية لسجلات الفيلق"
     >
       {/* Edge-to-Edge Hero Background Artwork with Mouse Hover Reveal */}
       <div className="absolute inset-0 z-0">
@@ -62,27 +62,27 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center pt-4 sm:pt-8 pb-6">
           
           {/* ========================================================= */}
-          {/* LEFT COLUMN: HERO EDITORIAL TYPOGRAPHY                    */}
+          {/* LEFT/RIGHT COLUMN (RTL): HERO EDITORIAL ARABIC TYPOGRAPHY */}
           {/* ========================================================= */}
           <div className="lg:col-span-6 xl:col-span-5 max-w-lg flex flex-col justify-center z-20">
             
             {/* Editorial Kicker / Brand Provenance */}
             <div className="flex items-center gap-2 mb-4 sm:mb-5">
-              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-[#8C7052] uppercase font-cinzel">
-                Imperium Privatum · Sovereign Swiss Node
+              <span className="text-[11px] sm:text-xs font-semibold tracking-normal text-[#8C7052] font-cinzel">
+                عُهُودُ الحُرَّاسِ الخَالِدِينَ · دِيوَانُ المَمَالِكِ العَتِيقَة
               </span>
             </div>
 
             {/* Primary Command Headline */}
             <h1
-              className="font-cinzel text-4xl sm:text-5xl md:text-6xl xl:text-[64px] font-bold text-[#292725] tracking-[-0.015em] leading-[1.04] sm:leading-[1.02] mb-6 sm:mb-8"
+              className="font-cinzel text-3xl sm:text-4xl md:text-5xl xl:text-[54px] font-bold text-[#292725] tracking-tight leading-[1.25] sm:leading-[1.2] mb-6 sm:mb-8"
               style={{ textWrap: "balance" }}
             >
-              CONQUER THE WEB
-              <span className="block text-[#4A4540] font-normal">— UNSEEN,</span>
-              <span className="block text-[#292725]">UNTOUCHABLE,</span>
-              <span className="block text-[#8C7052] font-extrabold tracking-[0.02em]">
-                IMPERIAL
+              تَسَيَّدْ آمَادَ الزَّمَان
+              <span className="block text-[#4A4540] font-normal text-2xl sm:text-3xl md:text-4xl mt-1">— مَهَابَةٌ لَا تَزُول،</span>
+              <span className="block text-[#292725]">سِرٌّ لَا يُخْتَرَق،</span>
+              <span className="block text-[#8C7052] font-extrabold text-3xl sm:text-4xl md:text-5xl mt-1">
+                مَجْدٌ إِمْبِرَاطُورِيّ
               </span>
             </h1>
 
@@ -90,12 +90,11 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
             <div className="flex items-start gap-3 sm:gap-4 max-w-md mb-8 sm:mb-10">
               {/* Short, thin vertical line as subtle editorial detail */}
               <div
-                className="w-px h-12 sm:h-14 bg-[#8C7052] shrink-0 mt-1 opacity-70"
+                className="w-px h-14 sm:h-16 bg-[#8C7052] shrink-0 mt-1 opacity-70"
                 aria-hidden="true"
               />
               <p className="text-xs sm:text-sm leading-relaxed text-[#5C5752] font-sans-clean font-normal">
-                Encrypt your traffic, hide your IP, and bypass any restrictions. Full
-                online anonymity — no logs, no limits, no compromises.
+                «إِنَّ الفَارِسَ الحَقِيقِيَّ لَا يَبْنِي مَجْدَهُ عَلَى أَنْقَاضِ الصَّخَب، بَلْ يُخَلِّدُ حِكْمَتَهُ فِي سِجِلَّاتِ الصَّمْتِ حَتَّى تُنْشِدَهَا الرِّيَاحُ لِلأَجْيَالِ القَادِمَة» — حِكْمَةُ حَامِي البَوَّابَةِ الشَّمْسِيَّة.
               </p>
             </div>
 
@@ -103,34 +102,34 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <a
                 href="#pricing"
-                className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all duration-200 text-xs sm:text-sm font-semibold tracking-[0.14em] uppercase shadow-md hover:shadow-lg hover:-translate-y-0.5 cursor-pointer flex items-center gap-2.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75]"
+                className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all duration-200 text-xs sm:text-sm font-semibold tracking-normal shadow-md hover:shadow-lg hover:-translate-y-0.5 cursor-pointer flex items-center gap-2.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75]"
               >
                 <ImperialEmblem className="w-4 h-4" color="#FAF7F2" />
-                <span>Claim Sovereign Access</span>
+                <span>اقْتَنِ مَخْطُوطَةَ الخُلُود</span>
               </a>
 
               <a
                 href="#download"
                 onClick={onOpenDownload}
-                className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white/70 hover:bg-white text-[#292725] border border-[#B69A75]/40 transition-all duration-200 text-xs sm:text-sm font-semibold tracking-[0.12em] uppercase backdrop-blur-xs shadow-2xs hover:shadow-sm cursor-pointer"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white/70 hover:bg-white text-[#292725] border border-[#B69A75]/40 transition-all duration-200 text-xs sm:text-sm font-semibold tracking-normal backdrop-blur-xs shadow-2xs hover:shadow-sm cursor-pointer"
               >
-                Download Suite
+                اسْتَكْشِفِ المَخْزَنَ الأُسْطُورِيّ
               </a>
             </div>
 
             {/* Unboxed Metadata Proof Line */}
-            <div className="mt-8 flex items-center gap-2 text-[11px] sm:text-xs text-[#7A7369]">
-              <span>Swiss Privacy Act Art. 13</span>
+            <div className="mt-8 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-[#7A7369]">
+              <span>دِيوَانُ الحِكَمِ العَتِيقَة</span>
               <span aria-hidden="true">·</span>
-              <span>100% Volatile RAM Architecture</span>
+              <span>أَسْرَارٌ نَقِيَّةٌ لَا تَبِيد</span>
               <span aria-hidden="true">·</span>
               <button
                 type="button"
                 onClick={handleCopyHash}
                 className="hover:text-[#292725] underline decoration-[#B69A75]/50 cursor-pointer"
-                title="Copy cryptographic audit fingerprint"
+                title="نَسْخُ خَتْمِ الحِكْمَةِ العَتِيقَة"
               >
-                {copiedAudit ? "Fingerprint Copied" : "Post-Quantum Audited"}
+                {copiedAudit ? "تَمَّ نَسْخُ خَتْمِ الحِكْمَة" : "أَخْتَامُ الفَيْلَقِ الإِمْبِرَاطُورِيّ"}
               </button>
             </div>
           </div>
@@ -147,7 +146,7 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
       {/* RIGHT BOTTOM LIQUID GLASS CARD (Powered by @ybouane/liquidglass) */}
       {/* ========================================================= */}
       <div
-        className="liquid-glass-card absolute right-4 sm:right-8 lg:right-12 bottom-16 sm:bottom-20 z-30 w-[300px] sm:w-[330px] rounded-[40px] p-5 sm:p-6 select-none border border-white/75 shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-[1.015]"
+        className="liquid-glass-card absolute left-4 sm:left-8 lg:left-12 bottom-16 sm:bottom-20 z-30 w-[300px] sm:w-[330px] rounded-[40px] p-5 sm:p-6 select-none border border-white/75 shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-[1.015]"
         data-config={JSON.stringify({
           blurAmount: 0.27,
           refraction: 2,
@@ -175,23 +174,23 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
           <div className="w-8.5 h-8.5 rounded-full bg-white/85 border border-[#B69A75]/40 flex items-center justify-center shadow-xs">
             <ShieldCheck className="w-4.5 h-4.5 text-[#B69A75]" />
           </div>
-          <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-[#736B63] bg-white/70 px-2.5 py-1 rounded-full border border-white/80 shadow-2xs backdrop-blur-xs">
-            <Lock className="w-3 h-3 text-[#B69A75]" />
-            <span>256-BIT CHACHA20</span>
+          <div className="flex items-center gap-1.5 text-[10px] tracking-normal text-[#736B63] bg-white/70 px-2.5 py-1 rounded-full border border-white/80 shadow-2xs backdrop-blur-xs font-semibold">
+            <Scroll className="w-3 h-3 text-[#B69A75]" />
+            <span>خَتْمُ الحِكْمَةِ العَتِيقَة</span>
           </div>
         </div>
 
         {/* Card Body */}
         <div className="space-y-1.5 mb-3.5">
           <h3 className="font-cinzel text-base sm:text-lg font-bold text-[#292725] tracking-tight leading-snug">
-            SOVEREIGN BASTION
-            <span className="block text-[#8C7052] font-semibold text-xs sm:text-sm">
-              — UNBREAKABLE, IMPERIAL
+            حِصْنُ الخَالِدِينَ
+            <span className="block text-[#8C7052] font-semibold text-xs sm:text-sm mt-0.5">
+              — مَنِيعٌ، إِمْبِرَاطُورِيّ
             </span>
           </h3>
 
           <p className="text-[11px] leading-relaxed text-[#5C5752] font-sans-clean font-normal">
-            100% Volatile RAM nodes engineered in subterranean Alpine shelters. Absolute physical resilience and post-quantum encryption.
+            «لَا تَهَابَنَّ صَلِيلَ السُّيُوفِ إِذَا كَانَتْ عَزِيمَتُكَ نُورَ الحَقِيقَة، فَمَا صَمَدَ الدَّهْرُ إِلَّا لِمَنْ ثَبَتَ فِي وَجْهِ العَاصِفَةِ بِصَمْتٍ وَوَقَار.»
           </p>
         </div>
 
@@ -199,9 +198,9 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
         <div className="pt-3 border-t border-[#E8E2D8]/80 flex items-center justify-between text-[10px] text-[#736B63]">
           <span className="flex items-center gap-1 text-[#4A4540]">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#B69A75]" />
-            Zero-Knowledge Verified
+            مَوْثُوقٌ بِأَلْوَاحِ الأَسْلَاف
           </span>
-          <span className="font-mono text-[#8C7052] font-semibold">LATENCY &lt; 2ms</span>
+          <span className="text-[#8C7052] font-semibold">سِجِلٌّ نَقِيٌّ خَالِد</span>
         </div>
       </div>
 
@@ -211,11 +210,11 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
       <div className="relative z-10 w-full flex justify-center items-center px-4 mt-2">
         <a
           href="#features"
-          className="group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#292725] text-[#FAF7F2] text-[11px] font-medium tracking-[0.18em] uppercase border border-[#B69A75]/30 shadow-md hover:bg-[#1A1816] hover:border-[#B69A75] transition-all cursor-pointer"
-          title="Explore Legion Architectural Features"
+          className="group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#292725] text-[#FAF7F2] text-[11px] font-medium tracking-normal border border-[#B69A75]/30 shadow-md hover:bg-[#1A1816] hover:border-[#B69A75] transition-all cursor-pointer"
+          title="اسْتَعْرِضْ سِجِلَّاتِ الحِكَمِ الإِمْبِرَاطُورِيَّة"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#B69A75]" />
-          <span>LEGION ARCHITECTURE SPECIFICATIONS</span>
+          <span>مَوْسُوعَةُ أَقْوَالِ الفُرْسَانِ وَسِيَرِ المُلُوك</span>
           <ChevronDown className="w-3.5 h-3.5 text-[#B69A75] transition-transform group-hover:translate-y-0.5" />
         </a>
       </div>

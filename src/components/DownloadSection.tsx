@@ -3,11 +3,11 @@ import {
   Laptop,
   Smartphone,
   Terminal,
-  Wifi,
   Download,
   CheckCircle,
   FileCode,
   QrCode,
+  BookOpen,
 } from "lucide-react";
 
 export default function DownloadSection() {
@@ -18,77 +18,68 @@ export default function DownloadSection() {
   const platforms = [
     {
       id: "macos",
-      name: "macOS",
-      sub: "Apple Silicon & Intel",
+      name: "دِيوَانُ أَبِل وَالمَاك",
+      sub: "نُسْخَةُ الشَّاشَاتِ العَالِيَة",
       icon: Laptop,
-      version: "v4.12.0",
-      filename: "Legion-macOS-Universal-v4.12.0.dmg",
-      size: "24.6 MB",
+      version: "الإِصْدَار ٤,١٢",
+      filename: "Legion-Chronicles-macOS.dmg",
+      size: "٢٤,٦ م.ب",
       sha256: "9a2f64e1c278b87a6d89e52731c3fa4e1b858f96e42b2600c6d7a5b399cf6521",
-      reqs: "macOS 12.0 Monterey or newer",
+      reqs: "macOS 12 Monterey أو أحدث",
     },
     {
       id: "ios",
-      name: "iOS & iPadOS",
-      sub: "Native App Store",
+      name: "أَلْوَاحُ الآيْفُون وَالآيْبَاد",
+      sub: "المَخْطُوطَةُ المَحْمُولَة",
       icon: Smartphone,
-      version: "v4.12.1",
-      filename: "Legion-iOS-v4.12.1.ipa",
-      size: "18.2 MB",
+      version: "الإِصْدَار ٤,١٢,١",
+      filename: "Legion-Chronicles-iOS.ipa",
+      size: "١٨,٢ م.ب",
       sha256: "81e309cb6f4b62db94056ec7a731efcba9e4179cbdf1e8e58f002cb75e3c8371",
-      reqs: "iOS 15.0 or newer",
+      reqs: "iOS 15.0 أو أحدث",
     },
     {
       id: "windows",
-      name: "Windows",
-      sub: "11 & 10 (x64 / ARM)",
+      name: "سِجِلَّاتُ وِينْدُوز المَلَكِيَّة",
+      sub: "نُسْخَةُ الحَوَاسِيبِ الشَّخْصِيَّة",
       icon: Laptop,
-      version: "v4.12.0",
-      filename: "Legion-Windows-Setup-v4.12.0.exe",
-      size: "32.1 MB",
+      version: "الإِصْدَار ٤,١٢",
+      filename: "Legion-Chronicles-Windows-Setup.exe",
+      size: "٣٢,١ م.ب",
       sha256: "4c71e411b05a76985d26315ee44a5e2f7b88939c1e7a5b00cb36a72e8e3d6402",
-      reqs: "Windows 10 64-bit or Windows 11",
+      reqs: "Windows 10 / 11",
     },
     {
       id: "android",
-      name: "Android",
-      sub: "APK & Google Play",
+      name: "لَوْحُ الأَنْدْرُويِد",
+      sub: "المَخْزَنُ الرَّقْمِيّ",
       icon: Smartphone,
-      version: "v4.11.8",
-      filename: "Legion-Android-Release-v4.11.8.apk",
-      size: "21.4 MB",
+      version: "الإِصْدَار ٤,١١",
+      filename: "Legion-Chronicles-Android.apk",
+      size: "٢١,٤ م.ب",
       sha256: "3b54d678a1f49678e2d456b891a27e38cb4691e847c2b51299dfa7852c00e621",
-      reqs: "Android 8.0 Oreo or newer",
+      reqs: "Android 8.0 Oreo أو أحدث",
     },
     {
-      id: "linux",
-      name: "Linux CLI & GUI",
-      sub: "Debian, Arch, Fedora",
+      id: "cli",
+      name: "دِيوَانُ التِّيرْمِينَال لِلْبَاحِثِين",
+      sub: "أَدَاةُ السَّطْرِ الأَوَامِرِيّ",
       icon: Terminal,
-      version: "v4.12.0",
-      filename: "legion-cli-linux-amd64.tar.gz",
-      size: "12.8 MB",
-      sha256: "f2c3d5e718a29b4056ec87a912b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f90123",
-      reqs: "Linux Kernel 5.4+ with WireGuard support",
-    },
-    {
-      id: "routers",
-      name: "Router & Gateway",
-      sub: "OpenWRT & pfSense",
-      icon: Wifi,
-      version: "Config Generator",
-      filename: "legion-wireguard-router.conf",
-      size: "4.2 KB",
-      sha256: "1e2d3c4b5a6f7890123456789abcdef0123456789abcdef0123456789abcdef0",
-      reqs: "Any WireGuard-capable firmware",
+      version: "الإِصْدَار ٣,٤",
+      filename: "legion-cli-chronicles.tar.gz",
+      size: "٨,٦ م.ب",
+      sha256: "5e4d2a1b9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c",
+      reqs: "Linux / BSD / POSIX Shell",
     },
   ];
 
   const current = platforms.find((p) => p.id === selectedPlatform) || platforms[0];
 
-  const handleDownload = () => {
-    setDownloadSuccess(current.filename);
-    setTimeout(() => setDownloadSuccess(null), 3500);
+  const handleDownload = (filename: string) => {
+    setDownloadSuccess(filename);
+    setTimeout(() => {
+      setDownloadSuccess(null);
+    }, 4000);
   };
 
   return (
@@ -97,22 +88,20 @@ export default function DownloadSection() {
       className="py-20 sm:py-28 px-4 sm:px-6 lg:px-12 bg-[#F7F3EF] border-t border-[#E8E2D8]"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="max-w-2xl mb-12 sm:mb-16">
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#8C7052] uppercase font-cinzel block mb-3">
-            05. CROSS-PLATFORM DEPLOYMENT
+        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
+          <span className="text-xs font-semibold tracking-normal text-[#8C7052] font-cinzel block mb-3">
+            ٠٥. خِزَانَةُ المَخْطُوطَاتِ الرَّقْمِيَّة
           </span>
           <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-bold text-[#292725] tracking-tight mb-4">
-            THE IMPERIAL CLIENT SUITE
+            تَحْمِيلُ أَلْوَاحِ الحِكْمَةِ لِكَافَّةِ الأَجْهِزَة
           </h2>
           <p className="text-sm sm:text-base text-[#5C5752] font-sans-clean leading-relaxed">
-            Engineered natively in Swift, Rust, and Kotlin for peak kernel performance.
-            Zero third-party telemetry frameworks.
+            اقْتَنِ مَخْطُوطَاتِ سِجِلَّاتِ الفَيْلَقِ عَلَى هَاتِفِكَ أَوْ حَاسُوبِكَ لِتَبْقَى حِكَمُ الخَالِدِينَ رَفِيقَةَ دَرْبِكَ فِي كُلِّ حِين.
           </p>
         </div>
 
-        {/* Platform Selection Tabs */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+        {/* Platform Selector Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8">
           {platforms.map((p) => {
             const Icon = p.icon;
             const isSelected = selectedPlatform === p.id;
@@ -121,130 +110,86 @@ export default function DownloadSection() {
                 key={p.id}
                 type="button"
                 onClick={() => setSelectedPlatform(p.id)}
-                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                className={`p-4 sm:p-5 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2 ${
                   isSelected
-                    ? "bg-white border-[#B69A75] shadow-md -translate-y-1"
-                    : "bg-white/60 border-[#DED7CB] hover:bg-white hover:border-[#C4B9AA]"
+                    ? "bg-white border-[#B69A75] shadow-md -translate-y-0.5"
+                    : "bg-white/60 border-white/80 hover:bg-white hover:border-[#D5CBBF] shadow-2xs"
                 }`}
               >
-                <Icon
-                  className={`w-5 h-5 mb-2 ${
-                    isSelected ? "text-[#8C7052]" : "text-[#7A7369]"
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+                    isSelected
+                      ? "bg-[#292725] text-[#FAF7F2]"
+                      : "bg-[#EAE4DC] text-[#786E64]"
                   }`}
-                />
-                <span className="font-cinzel text-sm font-bold text-[#292725] block">
+                >
+                  <Icon className="w-5 h-5" />
+                </div>
+                <div className="font-cinzel text-xs sm:text-sm font-bold text-[#292725]">
                   {p.name}
-                </span>
-                <span className="text-[10px] text-[#786E64] block truncate">
-                  {p.sub}
-                </span>
+                </div>
+                <div className="text-[10px] text-[#7A7369]">{p.sub}</div>
               </button>
             );
           })}
         </div>
 
-        {/* Selected Client Card Container */}
-        <div className="bg-white rounded-3xl border border-[#DED7CB] p-7 sm:p-10 shadow-lg">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Left Column: Platform Details */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-[#8C7052] bg-[#FAF4EA] px-2.5 py-1 rounded-full border border-[#E8DEC8]">
-                  RELEASE {current.version}
-                </span>
-                <span className="text-xs text-[#7A7369] font-mono">
-                  {current.size}
-                </span>
+        {/* Active Platform Download Details Box */}
+        <div className="bg-white rounded-3xl border border-[#DED7CB] p-7 sm:p-10 shadow-lg max-w-3xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-[#EAE4DA]">
+            <div className="flex items-center gap-4 text-center sm:text-right">
+              <div className="w-14 h-14 rounded-2xl bg-[#FAF7F2] border border-[#B69A75]/30 flex items-center justify-center shrink-0">
+                <BookOpen className="w-7 h-7 text-[#B69A75]" />
               </div>
-
-              <h3 className="font-cinzel text-2xl sm:text-3xl font-bold text-[#292725]">
-                Legion for {current.name}
-              </h3>
-
-              <p className="text-xs sm:text-sm text-[#5C5752] leading-relaxed">
-                Includes seamless multi-hop routing, automatic system kill switch, and
-                custom DNS resolvers anchored directly in our Zurich and Reykjavik
-                facilities.
-              </p>
-
-              <div className="pt-2 text-xs text-[#786E64] space-y-1">
-                <div>
-                  <span className="font-semibold text-[#292725]">Requirements:</span>{" "}
-                  {current.reqs}
-                </div>
-                <div>
-                  <span className="font-semibold text-[#292725]">Distribution:</span>{" "}
-                  Signed &amp; Notarized Binary
-                </div>
+              <div>
+                <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#292725]">
+                  {current.name}
+                </h3>
+                <p className="text-xs text-[#7A7369]">
+                  {current.version} · حَجْمُ المَلَف: {current.size} · {current.reqs}
+                </p>
               </div>
-
-              {/* Actions */}
-              <div className="pt-4 flex flex-wrap items-center gap-3 sm:gap-4">
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className="px-6 py-3 rounded-full bg-[#292725] hover:bg-[#1A1816] text-white text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-2.5 shadow-md hover:shadow-lg cursor-pointer"
-                >
-                  <Download className="w-4 h-4 text-[#B69A75]" />
-                  <span>Download {current.name} Client</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setShowChecksum(!showChecksum)}
-                  className="px-4 py-3 rounded-full bg-[#F7F3EF] hover:bg-[#EAE4DC] text-[#292725] text-xs font-medium tracking-wide border border-[#DED7CB] transition-all flex items-center gap-2 cursor-pointer"
-                >
-                  <FileCode className="w-4 h-4 text-[#8C7052]" />
-                  <span>{showChecksum ? "Hide Hash" : "Verify SHA-256"}</span>
-                </button>
-              </div>
-
-              {/* Download Feedback State */}
-              {downloadSuccess && (
-                <div className="p-3 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-xs flex items-center gap-2 animate-float-slow">
-                  <CheckCircle className="w-4 h-4 shrink-0" />
-                  <span>
-                    Initiated download for <strong>{downloadSuccess}</strong>. Verify
-                    binary signature before execution.
-                  </span>
-                </div>
-              )}
             </div>
 
-            {/* Right Column: Mobile Provisioning QR Code or Checksum Panel */}
-            <div className="lg:col-span-5 bg-[#FAF7F3] rounded-2xl p-6 border border-[#E8E2D8] flex flex-col items-center justify-center text-center">
-              {showChecksum ? (
-                <div className="w-full text-left space-y-3">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#8C7052] font-semibold block">
-                    SHA-256 BINARY SIGNATURE
-                  </span>
-                  <div className="p-3 bg-white rounded-lg border border-[#DED7CB] font-mono text-[11px] text-[#292725] break-all select-all leading-relaxed">
-                    {current.sha256}
-                  </div>
-                  <p className="text-[11px] text-[#786E64]">
-                    Verify in terminal:{" "}
-                    <code className="text-[#292725] bg-white px-1.5 py-0.5 rounded">
-                      shasum -a 256 {current.filename}
-                    </code>
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  <div className="w-28 h-28 bg-white p-2 rounded-xl border border-[#DED7CB] shadow-xs mx-auto flex items-center justify-center">
-                    <QrCode className="w-24 h-24 text-[#292725]" />
-                  </div>
-                  <span className="font-cinzel text-xs font-bold text-[#292725] block">
-                    Mobile Fast-Pairing Provision
-                  </span>
-                  <p className="text-[11px] text-[#736B62] max-w-xs mx-auto">
-                    Scan with your mobile camera to import anonymous WireGuard
-                    credentials directly into your device enclave.
-                  </p>
-                </div>
-              )}
+            <button
+              type="button"
+              onClick={() => handleDownload(current.filename)}
+              className="px-6 sm:px-8 py-3.5 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-md cursor-pointer shrink-0"
+            >
+              <Download className="w-4 h-4 text-[#B69A75]" />
+              <span>تَحْمِيلُ المَخْطُوطَةِ الآن</span>
+            </button>
+          </div>
+
+          {/* Download Success Notice */}
+          {downloadSuccess && (
+            <div className="mt-4 p-4 rounded-xl bg-[#FAF8F5] border border-[#B69A75] text-[#292725] flex items-center gap-3 animate-fade-in text-xs font-semibold">
+              <CheckCircle className="w-4 h-4 text-[#B69A75] shrink-0" />
+              <span>بَدَأَ تَحْمِيلُ «{downloadSuccess}» بِنَجَاح! طَابَتْ لَكَ رِحْلَةُ الحِكْمَة.</span>
+            </div>
+          )}
+
+          {/* Security & Checksum Verification Section */}
+          <div className="pt-6 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-[#8C7052] flex items-center gap-1.5">
+                <FileCode className="w-4 h-4" />
+                خَتْمُ التَّوْثِيقِ الرَّقْمِيّ (SHA-256)
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowChecksum(!showChecksum)}
+                className="text-xs text-[#7A7369] hover:text-[#292725] underline cursor-pointer"
+              >
+                {showChecksum ? "إِخْفَاءُ الخَتْم" : "إِظْهَارُ الخَتْم"}
+              </button>
             </div>
 
+            {showChecksum && (
+              <div className="p-3 bg-[#FAF7F2] rounded-xl border border-[#EAE3D6] font-mono text-[11px] text-[#5C5752] break-all select-all">
+                {current.sha256}
+              </div>
+            )}
           </div>
         </div>
       </div>

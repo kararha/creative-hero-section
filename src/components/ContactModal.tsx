@@ -8,10 +8,9 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
-  const [topic, setTopic] = useState("enterprise");
+  const [topic, setTopic] = useState("quote_request");
   const [handle, setHandle] = useState("");
   const [message, setMessage] = useState("");
-  const [pgpKey, setPgpKey] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState("");
   const [errors, setErrors] = useState<{ handle?: string; message?: string }>({});
@@ -33,10 +32,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const newErrors: { handle?: string; message?: string } = {};
 
     if (!handle.trim()) {
-      newErrors.handle = "Please provide an email or anonymous communication handle.";
+      newErrors.handle = "يُرْجَى إِدْخَالُ لَقَبِكَ أَوْ عُنْوَانِ المُرَاسَلَة.";
     }
-    if (!message.trim() || message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters.";
+    if (!message.trim() || message.trim().length < 8) {
+      newErrors.message = "يُرْجَى كِتَابَةُ رِسَالَةٍ مُفَصَّلَة (٨ أَحْرُفٍ عَلَى الأَقَلّ).";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -45,7 +44,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     }
 
     setErrors({});
-    const randomTicket = "LEGION-ENCR-" + Math.floor(100000 + Math.random() * 900000);
+    const randomTicket = "LEGION-MSG-" + Math.floor(100000 + Math.random() * 900000);
     setTicketId(randomTicket);
     setSubmitted(true);
   };
@@ -54,177 +53,139 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setSubmitted(false);
     setHandle("");
     setMessage("");
-    setPgpKey("");
     onClose();
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="contact-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
-    >
-      <div className="relative w-full max-w-lg bg-[#FAF7F3] rounded-3xl border border-[#DED7CB] shadow-2xl overflow-hidden p-6 sm:p-8">
-        
-        {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-[#EAE4DA] mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-white border border-[#B69A75]/40 flex items-center justify-center shadow-2xs">
-              <ImperialEmblem className="w-4 h-4" color="#8C7052" />
-            </div>
-            <div>
-              <h3
-                id="contact-modal-title"
-                className="font-cinzel text-lg font-bold text-[#292725]"
-              >
-                Sovereign Concierge
-              </h3>
-              <span className="text-[10px] text-[#8C7052] font-mono tracking-wider uppercase block">
-                Swiss PGP-Encrypted Channel
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="w-8 h-8 rounded-full hover:bg-[#EAE4DC] flex items-center justify-center text-[#7A7369] hover:text-[#292725] transition-colors cursor-pointer"
-            aria-label="Close dialog"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+      <div
+        className="relative w-full max-w-lg bg-[#FAF7F3] rounded-3xl border border-[#DED7CB] p-6 sm:p-8 shadow-2xl text-right"
+        role="dialog"
+        aria-modal="true"
+        aria-label="نِدَاءُ دِيوَانِ الحُرَّاس"
+      >
+        {/* Close Button */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-5 left-5 p-2 rounded-full text-[#7A7369] hover:text-[#292725] hover:bg-white/80 transition-colors cursor-pointer"
+          aria-label="إِغْلَاق"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
         {submitted ? (
-          <div className="py-8 text-center space-y-4">
-            <div className="w-12 h-12 rounded-full bg-[#FAF4EA] border border-[#B69A75] text-[#8C7052] flex items-center justify-center mx-auto">
-              <Check className="w-6 h-6" />
+          <div className="text-center py-8 space-y-4">
+            <div className="w-14 h-14 rounded-full bg-[#FAF7F2] border border-[#B69A75] mx-auto flex items-center justify-center">
+              <Check className="w-7 h-7 text-[#B69A75]" />
             </div>
-
-            <h4 className="font-cinzel text-xl font-bold text-[#292725]">
-              Encrypted Dispatch Sealed
-            </h4>
-
-            <p className="text-xs text-[#5C5752] leading-relaxed max-w-sm mx-auto">
-              Your inquiry has been encrypted with Legion’s master public key and queued
-              for review at our Zurich operations desk.
+            <h3 className="font-cinzel text-2xl font-bold text-[#292725]">
+              بَلَغَتْ رِسَالَتُكَ دِيوَانَ الحُرَّاس
+            </h3>
+            <p className="text-xs sm:text-sm text-[#5C5752] leading-relaxed max-w-sm mx-auto">
+              سَيَقُومُ أُمَنَاءُ السِّجِلَّاتِ بِمُطَالَعَةِ رِسَالَتِكَ وَالرَّدِّ عَلَيْهَا بِمَا يَلِيقُ بِأَعْرَافِ الفَيْلَق.
             </p>
-
-            <div className="p-3 bg-white rounded-xl border border-[#DED7CB] font-mono text-xs text-[#8C7052]">
-              Ticket Reference: <strong>{ticketId}</strong>
+            <div className="p-3 bg-white rounded-xl border border-[#EAE3D6] font-mono text-xs text-[#8C7052] font-bold">
+              رَقْمُ الرِّسَالَة: {ticketId}
             </div>
-
             <button
               type="button"
               onClick={handleReset}
-              className="mt-4 px-6 py-2.5 rounded-full bg-[#292725] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#1A1816] transition-colors cursor-pointer"
+              className="mt-4 px-6 py-2.5 rounded-full bg-[#292725] text-white text-xs font-semibold hover:bg-[#1A1816] transition-all cursor-pointer"
             >
-              Return to Legion
+              العَوْدَةُ إِلَى السِّجِلَّات
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4 text-left">
-            <div>
-              <label
-                htmlFor="inquiry-topic"
-                className="block text-[11px] font-semibold text-[#7A7369] uppercase tracking-wider mb-1.5"
-              >
-                Inquiry Classification
-              </label>
-              <select
-                id="inquiry-topic"
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-white border border-[#DED7CB] rounded-xl text-xs text-[#292725] focus:outline-hidden focus:border-[#B69A75]"
-              >
-                <option value="enterprise">Sovereign Enterprise Fleet</option>
-                <option value="bounty">Security Vulnerability / Bug Bounty</option>
-                <option value="press">Press &amp; Anonymous Legal Liaison</option>
-                <option value="support">General Cryptographic Inquiry</option>
-              </select>
-            </div>
-
-            <div>
-              <label
-                htmlFor="inquiry-handle"
-                className="block text-[11px] font-semibold text-[#7A7369] uppercase tracking-wider mb-1.5"
-              >
-                Return Channel (Email, Session ID, or SimpleX) *
-              </label>
-              <input
-                id="inquiry-handle"
-                type="text"
-                placeholder="e.g. anonymous@proton.me or Session Key"
-                value={handle}
-                onChange={(e) => setHandle(e.target.value)}
-                className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-xs text-[#292725] focus:outline-hidden focus:border-[#B69A75] ${
-                  errors.handle ? "border-red-400" : "border-[#DED7CB]"
-                }`}
-              />
-              {errors.handle && (
-                <span className="text-[10px] text-red-500 mt-1 block">
-                  {errors.handle}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-9 h-9 rounded-full bg-white border border-[#B69A75]/40 flex items-center justify-center">
+                <ImperialEmblem className="w-5 h-5" color="#B69A75" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#8C7052] block">
+                  دِيوَانُ المُخَاطَبَاتِ الإِمْبِرَاطُورِيّ
                 </span>
-              )}
+                <h3 className="font-cinzel text-xl font-bold text-[#292725]">
+                  نِدَاءُ دِيوَانِ الحُرَّاس
+                </h3>
+              </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="inquiry-message"
-                className="block text-[11px] font-semibold text-[#7A7369] uppercase tracking-wider mb-1.5"
-              >
-                Encrypted Dispatch Message *
-              </label>
-              <textarea
-                id="inquiry-message"
-                rows={3}
-                placeholder="Describe your security requirements..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className={`w-full px-3.5 py-2 bg-white border rounded-xl text-xs text-[#292725] focus:outline-hidden focus:border-[#B69A75] ${
-                  errors.message ? "border-red-400" : "border-[#DED7CB]"
-                }`}
-              />
-              {errors.message && (
-                <span className="text-[10px] text-red-500 mt-1 block">
-                  {errors.message}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#4A4540] mb-1.5">
+                  غَرَضُ المُرَاسَلَة:
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: "quote_request", label: "طَلَبُ حِكْمَةٍ نَادِرَة" },
+                    { id: "allegiance", label: "الانْتِسَابُ لِلْفَيْلَق" },
+                    { id: "consultation", label: "اسْتِشَارَةُ الأَسْلَاف" },
+                  ].map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => setTopic(t.id)}
+                      className={`py-2 px-2 text-[11px] rounded-xl border text-center transition-all cursor-pointer ${
+                        topic === t.id
+                          ? "bg-[#292725] text-white border-[#292725] font-semibold"
+                          : "bg-white text-[#5C5752] border-[#DED7CB] hover:bg-[#FAF7F2]"
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#4A4540] mb-1">
+                  اللَّقَبُ أَوْ عُنْوَانُ البَرِيد:
+                </label>
+                <input
+                  type="text"
+                  value={handle}
+                  onChange={(e) => setHandle(e.target.value)}
+                  placeholder="مَثَلًا: الفَارِسُ طَارِق / tareq@domain.com"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#DED7CB] text-xs text-[#292725] focus:outline-hidden focus:border-[#B69A75]"
+                />
+                {errors.handle && (
+                  <p className="text-[11px] text-red-600 mt-1">{errors.handle}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#4A4540] mb-1">
+                  نَصُّ الرِّسَالَةِ أَوْ كَلِمَةُ الاسْتِفْسَار:
+                </label>
+                <textarea
+                  rows={3}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="اكْتُبْ مَا تَشَاءُ بِكُلِّ صِدْقٍ وَوَقَار..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#DED7CB] text-xs text-[#292725] focus:outline-hidden focus:border-[#B69A75] resize-none"
+                />
+                {errors.message && (
+                  <p className="text-[11px] text-red-600 mt-1">{errors.message}</p>
+                )}
+              </div>
+
+              <div className="pt-2 flex items-center justify-between text-[11px] text-[#7A7369]">
+                <span className="flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#B69A75]" />
+                  سِرِّيَّةٌ تَامَّةٌ وَأَمَانَةٌ مُقَدَّسَة
                 </span>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="inquiry-pgp"
-                className="block text-[11px] font-semibold text-[#7A7369] uppercase tracking-wider mb-1.5"
-              >
-                Optional PGP Public Key Fingerprint
-              </label>
-              <input
-                id="inquiry-pgp"
-                type="text"
-                placeholder="e.g. 4D8A 91BC 03EF 4501..."
-                value={pgpKey}
-                onChange={(e) => setPgpKey(e.target.value)}
-                className="w-full px-3.5 py-2 bg-white border border-[#DED7CB] rounded-xl text-xs font-mono text-[#292725] focus:outline-hidden focus:border-[#B69A75]"
-              />
-            </div>
-
-            <div className="pt-2 flex items-center justify-between">
-              <span className="text-[10px] text-[#786E64] flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#8C7052]" />
-                Zero-Knowledge Storage
-              </span>
-
-              <button
-                type="submit"
-                className="px-5 py-2.5 rounded-full bg-[#292725] hover:bg-[#1A1816] text-white text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-2 cursor-pointer shadow-sm"
-              >
-                <Send className="w-3.5 h-3.5 text-[#B69A75]" />
-                <span>Transmit Inquiry</span>
-              </button>
-            </div>
-          </form>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-sm"
+                >
+                  <Send className="w-3.5 h-3.5 text-[#B69A75]" />
+                  <span>إِرْسَالُ النِّدَاء</span>
+                </button>
+              </div>
+            </form>
+          </div>
         )}
       </div>
     </div>

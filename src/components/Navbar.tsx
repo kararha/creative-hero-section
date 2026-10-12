@@ -51,10 +51,10 @@ export default function Navbar({
   }, []);
 
   const navLinks = [
-    { label: "FEATURES", href: "#features" },
-    { label: "SERVERS", href: "#servers" },
-    { label: "PRICING", href: "#pricing" },
-    { label: "DOWNLOAD", href: "#download" },
+    { label: "رَكَائِزُ المَجْد", href: "#features" },
+    { label: "خَرِيطَةُ المَمَالِك", href: "#servers" },
+    { label: "عُهُودُ الفُرْسَان", href: "#pricing" },
+    { label: "المَخْطُوطَات", href: "#download" },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -84,14 +84,14 @@ export default function Navbar({
           <div className="w-8 h-8 rounded-full border border-[#B69A75]/40 bg-white/70 backdrop-blur-xs flex items-center justify-center transition-transform group-hover:scale-105 shadow-2xs">
             <ImperialEmblem className="w-4.5 h-4.5" color="#B69A75" />
           </div>
-          <span className="font-cinzel tracking-[0.22em] text-sm sm:text-base font-bold text-[#292725] whitespace-nowrap">
-            LEGION VPN
+          <span className="font-cinzel tracking-normal text-sm sm:text-base font-bold text-[#292725] whitespace-nowrap">
+            فَيْلَقُ الأَسَاطِير
           </span>
         </a>
 
         {/* Center: Translucent Pill-Shaped Navigation Container with WebGL LiquidGlass */}
         <nav
-          className="glass-nav-pill hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-full glass-nav shadow-xs border border-white/80"
+          className="glass-nav-pill hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full glass-nav shadow-xs border border-white/80"
           data-config={JSON.stringify({
             blurAmount: 0.27,
             refraction: 2,
@@ -109,7 +109,7 @@ export default function Navbar({
             shadowSpread: 10,
             bevelMode: 0,
           })}
-          aria-label="Main Navigation"
+          aria-label="التنقل الرئيسي"
         >
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.replace("#", "");
@@ -118,9 +118,9 @@ export default function Navbar({
                 key={link.label}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className={`px-4 py-1.5 text-xs font-semibold tracking-[0.16em] transition-all rounded-full whitespace-nowrap ${
+                className={`px-4 py-1.5 text-xs font-semibold tracking-normal transition-all rounded-full whitespace-nowrap ${
                   isActive
-                    ? "bg-[#E8E3DE]/90 text-[#292725] shadow-2xs"
+                    ? "bg-[#E8E3DE]/90 text-[#292725] shadow-2xs font-bold"
                     : "text-[#5C5752] hover:text-[#292725] hover:bg-white/40"
                 }`}
               >
@@ -137,10 +137,10 @@ export default function Navbar({
             type="button"
             onClick={onToggleArtVariant}
             className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-[#B69A75]/30 bg-white/60 hover:bg-white text-[#5C5752] hover:text-[#292725] transition-all shadow-2xs cursor-pointer"
-            title={`Switch to ${artVariant === "gold" ? "Carrara Marble" : "Imperial Gold"} edition`}
+            title={`التبديل إلى ${artVariant === "gold" ? "رخام القياصرة" : "ذهب الأساطير"}`}
           >
             <Sparkles className="w-3.5 h-3.5 text-[#B69A75]" />
-            <span className="capitalize">{artVariant} Art</span>
+            <span>{artVariant === "gold" ? "ذَهَبُ الأَسَاطِير" : "رُخَامُ القَيَاصِرَة"}</span>
           </button>
 
           {/* Circular External-Link / Protocol Status Button */}
@@ -148,8 +148,8 @@ export default function Navbar({
             href="#servers"
             onClick={(e) => scrollToSection(e, "#servers")}
             className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-full border border-white/80 bg-white/70 backdrop-blur-xs flex items-center justify-center text-[#292725] hover:bg-white hover:scale-105 transition-all shadow-2xs cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75]"
-            title="Inspect Sovereign Node Network"
-            aria-label="Inspect Sovereign Node Network"
+            title="تَفَقَّدْ خَرِيطَةَ الحُصُونِ وَالمَمَالِك"
+            aria-label="تَفَقَّدْ خَرِيطَةَ الحُصُونِ وَالمَمَالِك"
           >
             <ArrowUpRight className="w-4 h-4 text-[#292725]" />
           </a>
@@ -158,9 +158,9 @@ export default function Navbar({
           <button
             type="button"
             onClick={onOpenContact}
-            className="px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold tracking-[0.14em] uppercase text-[#292725] bg-white/80 hover:bg-[#292725] hover:text-white border border-[#B69A75]/35 rounded-full backdrop-blur-xs transition-all shadow-2xs cursor-pointer whitespace-nowrap focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75]"
+            className="px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold tracking-normal text-[#292725] bg-white/80 hover:bg-[#292725] hover:text-white border border-[#B69A75]/35 rounded-full backdrop-blur-xs transition-all shadow-2xs cursor-pointer whitespace-nowrap focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75]"
           >
-            CONTACT US
+            نِدَاءُ الحُرَّاس
           </button>
 
           {/* Mobile Hamburger Toggle */}
@@ -168,7 +168,7 @@ export default function Navbar({
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden w-8.5 h-8.5 rounded-full border border-white/80 bg-white/70 flex items-center justify-center text-[#292725]"
-            aria-label="Toggle navigation menu"
+            aria-label="فتح قائمة التنقل"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -184,7 +184,7 @@ export default function Navbar({
                 key={link.label}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="px-4 py-2.5 text-sm font-medium tracking-[0.12em] text-[#292725] hover:bg-white/70 rounded-xl transition-colors"
+                className="px-4 py-2.5 text-sm font-medium text-[#292725] hover:bg-white/70 rounded-xl transition-colors"
               >
                 {link.label}
               </a>
@@ -198,7 +198,7 @@ export default function Navbar({
               className="flex items-center gap-2 text-xs text-[#5C5752] hover:text-[#292725]"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#B69A75]" />
-              <span>Theme: {artVariant === "gold" ? "Imperial Gold" : "Carrara Marble"}</span>
+              <span>الهيئة: {artVariant === "gold" ? "ذهب الأساطير" : "رخام القياصرة"}</span>
             </button>
 
             <button
@@ -207,9 +207,9 @@ export default function Navbar({
                 setMobileMenuOpen(false);
                 onOpenContact();
               }}
-              className="text-xs font-semibold tracking-wider uppercase text-[#B69A75] hover:text-[#8C7052]"
+              className="text-xs font-semibold text-[#B69A75] hover:text-[#8C7052]"
             >
-              Concierge Inquiry &rarr;
+              نِداءُ الحُرّاس &larr;
             </button>
           </div>
         </div>

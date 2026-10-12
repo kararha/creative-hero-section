@@ -1,149 +1,144 @@
-import { useState } from "react";
-import { Server, Zap, Shield, Search, ArrowRight, Check } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Castle, Compass, Search, ArrowLeft, Check, Copy, Sparkles } from "lucide-react";
 
-interface NodeItem {
+interface KingdomRealm {
   id: string;
-  city: string;
-  country: string;
-  region: "europe" | "americas" | "apac" | "offshore";
-  ip: string;
-  ping: number;
-  bandwidth: string;
-  protocol: string;
-  load: number;
-  status: "Optimal" | "Secure";
+  name: string;
+  realm: string;
+  region: "north" | "orient" | "west" | "isles";
+  regent: string;
+  year: string;
+  quote: string;
+  status: "مَنِيعٌ أَبَدِيّ" | "حِصْنٌ شَامِخ";
+  guards: string;
+  seal: string;
 }
 
 export default function ServersSection() {
   const [selectedRegion, setSelectedRegion] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeNode, setActiveNode] = useState<NodeItem>({
-    id: "ch-zrh-01",
-    city: "Zurich",
-    country: "Switzerland",
-    region: "europe",
-    ip: "185.156.73.12",
-    ping: 14,
-    bandwidth: "10 Gbps",
-    protocol: "WireGuard & Stealth",
-    load: 28,
-    status: "Optimal",
-  });
-  const [testingPing, setTestingPing] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const serverNodes: NodeItem[] = [
+  const kingdoms: KingdomRealm[] = [
     {
-      id: "ch-zrh-01",
-      city: "Zurich (Alpine Bunker)",
-      country: "Switzerland",
-      region: "europe",
-      ip: "185.156.73.12",
-      ping: 14,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Stealth",
-      load: 28,
-      status: "Optimal",
+      id: "alps",
+      name: "قَلْعَةُ الأَلْبِ الشَّاهِقَة",
+      realm: "مَمْلَكَةُ الصُّخُورِ البَيْضَاء (الأَلْب)",
+      region: "north",
+      regent: "اللورد كَاسْيَان الصَّامِد",
+      year: "سِجِلَّاتُ العَامِ ٢٤٠ ق.م",
+      quote: "«الجِبَالُ لَا تَنْحَنِي لِعَصْفِ الرِّيَاح، وَهَكَذَا نُفُوسُ الأَحْرَارِ الَّذِينَ ذَاقُوا طَعْمَ الكَرَامَةِ فِي حِمَى الفَيْلَق.»",
+      status: "مَنِيعٌ أَبَدِيّ",
+      guards: "فُرْسَانُ الدُّرُوعِ الرُّخَامِيَّة",
+      seal: "خَتْمُ الصَّخْرِ الأَبَدِيّ",
     },
     {
-      id: "is-rey-01",
-      city: "Reykjavik (Geothermal Hub)",
-      country: "Iceland",
-      region: "offshore",
-      ip: "82.221.139.84",
-      ping: 22,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Tor-Hop",
-      load: 34,
-      status: "Optimal",
+      id: "reykjavik",
+      name: "مَنَارَةُ الشَّمَالِ الجَلِيدِيَّة",
+      realm: "أَرْضُ البَرَاكِينِ وَالجَلِيد (الشَّمَال الأَقْصَى)",
+      region: "north",
+      regent: "الشَّيْخُ فَالْدِيمَار الحَكِيم",
+      year: "أَلْوَاحُ العَامِ ٣١٥ ق.م",
+      quote: "«فِي صَقِيعِ الصَّمْتِ وَعُزْلَةِ الثُّلُوجِ تَتَجَلَّى أَنْوَارُ البَصِيرَة، فَمَنْ لَمْ يُخَالِطِ الصَّفَاءَ لَمْ يُمَيِّزِ الجَوْهَرَ مِنَ المَظْهَر.»",
+      status: "حِصْنٌ شَامِخ",
+      guards: "رُمَاةُ الشَّفَقِ القُطْبِيّ",
+      seal: "خَتْمُ الجَلِيدِ النَّقِيّ",
     },
     {
-      id: "it-rom-01",
-      city: "Rome (Imperial Gateway)",
-      country: "Italy",
-      region: "europe",
-      ip: "193.204.114.7",
-      ping: 18,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Stealth",
-      load: 42,
-      status: "Optimal",
+      id: "rome",
+      name: "بَابُ القَيَاصِرَةِ الإِمْبِرَاطُورِيّ",
+      realm: "عَاصِمَةُ التِّيجَانِ الذَّهَبِيَّة",
+      region: "west",
+      regent: "القَائِدُ فَالِيرْيُوس المَهَاب",
+      year: "عَهْدُ الأَبْرَاجِ العَشَرَة",
+      quote: "«الشَّرَفُ هُوَ الحِصْنُ الوَحِيدُ الَّذِي لَا تَمْلِكُ جُيُوشُ الأَرْضِ كُلِّهَا قُوَّةً لِهَدْمِهِ أَوْ ثَلْمِ جِدَارِه.»",
+      status: "مَنِيعٌ أَبَدِيّ",
+      guards: "الحَرَسُ الإِمْبِرَاطُورِيُّ الأَوَّل",
+      seal: "عُقَابُ الذَّهَبِ الخَالِد",
     },
     {
-      id: "jp-tyo-01",
-      city: "Tokyo (Otemachi Fiber)",
-      country: "Japan",
-      region: "apac",
-      ip: "103.102.166.2",
-      ping: 68,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Stealth",
-      load: 38,
-      status: "Optimal",
+      id: "kyoto",
+      name: "بُرْجُ السَّاكُورَا وَالضَّبَاب",
+      realm: "مَمَالِكُ الشَّرْقِ الأَقْصَى",
+      region: "orient",
+      regent: "الحَكِيمُ كِينْشِين صَاحِبُ السَّيْفِ الصَّامِت",
+      year: "سِجِلُّ العُصُورِ القَدِيمَة",
+      quote: "«قَطْرَةُ المَاءِ تَنْحَتُ الصَّخْرَ بِالصَّبْرِ لَا بِالقُوَّة؛ وَمَنْ مَلَكَ أَمْرَ نَفْسِهِ غَلَبَ دَهْرَهُ بِأَسْرِه.»",
+      status: "حِصْنٌ شَامِخ",
+      guards: "فُرْسَانُ الظِّلِّ وَالنُّور",
+      seal: "زَهْرَةُ الصَّفَاءِ السَّرْمَدِيّ",
     },
     {
-      id: "sg-sin-01",
-      city: "Singapore (Jurong Node)",
-      country: "Singapore",
-      region: "apac",
-      ip: "165.225.112.50",
-      ping: 82,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Stealth",
-      load: 49,
-      status: "Optimal",
+      id: "babylon",
+      name: "حِصْنُ بَابِلَ وَالرَّافِدَيْن",
+      realm: "أَرْضُ الحَضَارَاتِ وَسِجِلَّاتُ الطِّينِ المُفَخَّر",
+      region: "orient",
+      regent: "الكَبِيرُ حَمُورَابِي الرُّوحَانِيّ",
+      year: "أَلْوَاحُ شَمْسِ الحَقِيقَة",
+      quote: "«العَدْلُ مِيزَانٌ إِنِ اعْوَجَّ زَالَتْ عُرُوشُ المُلُوك، وَالحِكْمَةُ نَبْعٌ يَسْقِي القُلُوبَ حَتَّى تَمْتَلِئَ بَهَاءً وَنُورًا.»",
+      status: "مَنِيعٌ أَبَدِيّ",
+      guards: "حُرَّاسُ الأَسَدِ البَابِلِيّ",
+      seal: "خَتْمُ الشَّمْسِ السَّاطِعَة",
     },
     {
-      id: "de-fra-01",
-      city: "Frankfurt (DE-CIX Core)",
-      country: "Germany",
-      region: "europe",
-      ip: "194.109.6.93",
-      ping: 16,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Multi-Hop",
-      load: 54,
-      status: "Optimal",
+      id: "cordoba",
+      name: "قَصْرُ الأَنْدَلُسِ المُشْرِق",
+      realm: "دِيَارُ العِلْمِ وَحَدَائِقُ الأَسْرَار",
+      region: "west",
+      regent: "الفَيْلَسُوفُ أَبُو الوَلِيدِ الأَنْدَلُسِيّ",
+      year: "سِجِلَّاتُ المَجْدِ المَنِير",
+      quote: "«العِلْمُ وَحْدَهُ هُوَ السُّلْطَانُ الَّذِي لَا يُعْزَل، وَالفَضِيلَةُ هِيَ الحِلْيَةُ الَّتِي لَا تَبْلَى عَلَى مَرِّ الأَيَّام.»",
+      status: "حِصْنٌ شَامِخ",
+      guards: "فُرْسَانُ قُرْطُبَةَ البَيْضَاء",
+      seal: "هِلَالُ المَعْرِفَةِ الذَّهَبِيّ",
     },
     {
-      id: "us-nyc-01",
-      city: "New York (Hudson Transit)",
-      country: "United States",
-      region: "americas",
-      ip: "198.51.100.14",
-      ping: 42,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Stealth",
-      load: 51,
-      status: "Optimal",
+      id: "singapore",
+      name: "مَضِيقُ النَّخِيلِ وَالبِحَارِ السَّبْع",
+      realm: "مَفْتَرَقُ طُرُقِ التَّوَابِلِ وَالأَسَاطِيل",
+      region: "isles",
+      regent: "رُبَّانُ البِحَارِ الأَعْظَم تِشَانْغ",
+      year: "مَخْطُوطَةُ الرِّيَاحِ المَوْسِمِيَّة",
+      quote: "«مَنْ خَافَ ارْتِفَاعَ المَوْجِ لَمْ يَرْكَبِ اللُّجَج، وَمَنْ لَمْ يُجَاسِرْ لَمْ يَظْفَرْ بِدُرَرِ الحِكْمَةِ المَكْنُونَة.»",
+      status: "مَنِيعٌ أَبَدِيّ",
+      guards: "حُمَاةُ المَضَايِقِ المَلَكِيَّة",
+      seal: "مِرْسَاةُ الصُّمُودِ الأَبَدِيّ",
     },
     {
-      id: "pa-pty-01",
-      city: "Panama City (Sovereign Port)",
-      country: "Panama",
-      region: "offshore",
-      ip: "190.216.200.5",
-      ping: 74,
-      bandwidth: "10 Gbps",
-      protocol: "WireGuard & Tor-Hop",
-      load: 22,
-      status: "Optimal",
+      id: "andes",
+      name: "حِصْنُ قِمَمِ الأَنْدِيزِ السَّحَابِيَّة",
+      realm: "مَمْلَكَةُ الصُّقُورِ الفَوْقِيَّة",
+      region: "isles",
+      regent: "سَيِّدُ الشَّمْسِ أَمَارُو",
+      year: "سِجِلُّ العُرُوشِ العَالِيَة",
+      quote: "«حِينَ تَرْتَفِعُ فَوْقَ الغُيُومِ تَصْغُرُ فِي عَيْنَيْكَ كُلُّ صِغَارِ الأُمُور، وَلَا تَرَى سِوَى صَفَاءِ الأَبَدِيَّة.»",
+      status: "حِصْنٌ شَامِخ",
+      guards: "حُرَّاسُ عُقَابِ الشَّمْس",
+      seal: "قُرْصُ النُّورِ الأَزَلِيّ",
     },
   ];
 
-  const filteredNodes = serverNodes.filter((node) => {
-    const matchesRegion =
-      selectedRegion === "all" || node.region === selectedRegion;
-    const matchesSearch =
-      node.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      node.country.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesRegion && matchesSearch;
-  });
+  const [activeKingdom, setActiveKingdom] = useState<KingdomRealm>(kingdoms[0]);
 
-  const handleTestLatency = () => {
-    setTestingPing(true);
-    setTimeout(() => {
-      setTestingPing(false);
-    }, 800);
+  // Memoized search and filtering
+  const filteredKingdoms = useMemo(() => {
+    return kingdoms.filter((k) => {
+      const matchesRegion = selectedRegion === "all" || k.region === selectedRegion;
+      const q = searchQuery.trim().toLowerCase();
+      const matchesSearch =
+        !q ||
+        k.name.toLowerCase().includes(q) ||
+        k.realm.toLowerCase().includes(q) ||
+        k.regent.toLowerCase().includes(q) ||
+        k.quote.toLowerCase().includes(q);
+      return matchesRegion && matchesSearch;
+    });
+  }, [selectedRegion, searchQuery]);
+
+  const handleCopyQuote = (k: KingdomRealm) => {
+    navigator.clipboard?.writeText(`${k.quote} — ${k.regent} (${k.name})`);
+    setCopiedId(k.id);
+    setTimeout(() => setCopiedId(null), 2200);
   };
 
   return (
@@ -155,30 +150,29 @@ export default function ServersSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div className="max-w-2xl">
-            <span className="text-xs font-semibold tracking-[0.25em] text-[#8C7052] uppercase font-cinzel block mb-3">
-              02. GLOBAL TOPOLOGY
+            <span className="text-xs font-semibold tracking-normal text-[#8C7052] font-cinzel block mb-3">
+              ٠٢. خَرِيطَةُ المَمَالِكِ وَأَبْرَاجُ الحِكْمَة
             </span>
             <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-bold text-[#292725] tracking-tight leading-tight mb-4">
-              SOVEREIGN IMPERIAL NETWORK
+              أَطْلَسُ الحُصُونِ وَأَقْوَالُ الحُكَمَاء
             </h2>
             <p className="text-sm sm:text-base text-[#5C5752] font-sans-clean leading-relaxed">
-              140+ dedicated bare-metal nodes configured across 62 jurisdictions. Zero
-              virtualized cloud rentals, zero disk persistence.
+              تَنَقَّلْ بَيْنَ أَبْرَاجِ المَمَالِكِ العَتِيقَةِ وَاسْتَلْهِمْ مِنْ حُكَّامِهَا أَعْظَمَ حِكَمِ الصُّمُودِ وَالشَّجَاعَةِ وَالعَدَالَة.
             </p>
           </div>
 
           {/* Quick stats strip */}
           <div className="flex items-center gap-6 sm:gap-8 pb-1 border-b border-[#E0D7C9]">
             <div>
-              <span className="text-[11px] text-[#7A7369] block">Total Fleet</span>
+              <span className="text-[11px] text-[#7A7369] block">أَبْرَاجُ الحِكْمَة</span>
               <span className="font-cinzel text-xl sm:text-2xl font-bold text-[#292725]">
-                140+ Nodes
+                ٨ قِلَاعٍ أُسْطُورِيَّة
               </span>
             </div>
             <div>
-              <span className="text-[11px] text-[#7A7369] block">Bare-Metal Backbone</span>
+              <span className="text-[11px] text-[#7A7369] block">سِجِلَّاتُ الأَسْلَاف</span>
               <span className="font-cinzel text-xl sm:text-2xl font-bold text-[#8C7052]">
-                10 Gbps Tier-1
+                ١٠٠٪ حِكَمٌ مُوَثَّقَة
               </span>
             </div>
           </div>
@@ -189,11 +183,11 @@ export default function ServersSection() {
           {/* Region Tabs */}
           <div className="flex items-center gap-1.5 p-1 bg-white rounded-full border border-[#DED7CB] shadow-2xs overflow-x-auto max-w-full">
             {[
-              { id: "all", label: "All Hubs" },
-              { id: "europe", label: "Europe & Swiss" },
-              { id: "offshore", label: "Offshore Bastions" },
-              { id: "americas", label: "Americas" },
-              { id: "apac", label: "Asia-Pacific" },
+              { id: "all", label: "جَمِيعُ الحُصُون" },
+              { id: "north", label: "قِلَاعُ الشَّمَالِ وَالأَلْب" },
+              { id: "orient", label: "أَبْرَاجُ المَشْرِقِ العَتِيق" },
+              { id: "west", label: "مَمَالِكُ الأَنْدَلُسِ وَالغَرْب" },
+              { id: "isles", label: "جُزُرُ البِحَارِ وَالأَنْدِيز" },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -211,153 +205,133 @@ export default function ServersSection() {
           </div>
 
           {/* Search Field */}
-          <div className="relative w-full sm:w-64">
-            <Search className="w-4 h-4 text-[#8C7052] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="relative w-full sm:w-72">
+            <Search className="w-4 h-4 text-[#8C7052] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
-              placeholder="Search by city or country..."
+              placeholder="ابْحَثْ عَنِ القَلْعَةِ أَوِ الحَاكِم..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white rounded-full border border-[#DED7CB] text-xs text-[#292725] placeholder:text-[#9C948A] focus:outline-hidden focus:border-[#B69A75] shadow-2xs"
+              className="w-full pl-4 pr-9 py-2 rounded-full text-xs bg-white border border-[#DED7CB] focus:outline-hidden focus:border-[#B69A75] text-[#292725] placeholder-[#9E958A] shadow-2xs"
             />
           </div>
         </div>
 
-        {/* Server Explorer Grid & Live Inspector */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        {/* Kingdom Grid + Active Kingdom Dossier */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
           
-          {/* Left: Scrollable Server Node Roster */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-[#DED7CB] p-4 sm:p-6 shadow-md max-h-[520px] overflow-y-auto custom-scrollbar space-y-2.5">
-            {filteredNodes.map((node) => {
-              const isSelected = activeNode.id === node.id;
+          {/* List of Kingdoms */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[580px] overflow-y-auto pr-1 custom-scrollbar">
+            {filteredKingdoms.map((k) => {
+              const isSelected = activeKingdom.id === k.id;
               return (
                 <div
-                  key={node.id}
-                  onClick={() => setActiveNode(node)}
-                  className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 ${
+                  key={k.id}
+                  onClick={() => setActiveKingdom(k)}
+                  className={`p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                     isSelected
-                      ? "bg-[#FAF7F2] border-[#B69A75] shadow-xs"
-                      : "bg-white border-[#EFEBE4] hover:bg-[#FAF8F5] hover:border-[#D6CEBE]"
+                      ? "bg-white border-[#B69A75] shadow-md -translate-y-0.5"
+                      : "bg-white/70 border-white/80 hover:bg-white hover:border-[#D5CBBF] shadow-2xs"
                   }`}
                 >
-                  <div className="flex items-center gap-3.5">
-                    <div
-                      className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                        isSelected
-                          ? "bg-[#292725] text-[#FAF7F2]"
-                          : "bg-[#F2EDE4] text-[#736B62]"
-                      }`}
-                    >
-                      <Server className="w-4.5 h-4.5" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-cinzel text-sm font-bold text-[#292725]">
-                          {node.city}
-                        </span>
-                        <span className="text-[10px] font-mono text-[#8C7052] bg-[#F7F2E9] px-2 py-0.5 rounded-full border border-[#E8DEC8]">
-                          {node.country}
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-[#736B62] font-mono block mt-0.5">
-                        {node.bandwidth} · {node.protocol}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FAF7F2] text-[#8C7052] border border-[#EAE3D6]">
+                        {k.status}
                       </span>
+                      <Castle className="w-4 h-4 text-[#B69A75]" />
                     </div>
+                    <h3 className="font-cinzel text-base font-bold text-[#292725] mb-1">
+                      {k.name}
+                    </h3>
+                    <p className="text-xs text-[#7A7369] font-sans-clean mb-3">
+                      {k.realm}
+                    </p>
+                    <p className="text-xs italic text-[#4A4540] line-clamp-2 leading-relaxed">
+                      {k.quote}
+                    </p>
                   </div>
 
-                  <div className="text-right shrink-0">
-                    <span className="font-mono text-xs font-semibold text-[#292725] block">
-                      {node.ping} ms
-                    </span>
-                    <span className="text-[10px] text-[#786E64] block">
-                      {node.load}% Capacity
-                    </span>
+                  <div className="mt-4 pt-3 border-t border-[#F0EAE1] flex items-center justify-between text-[11px] text-[#8C7052]">
+                    <span>{k.regent}</span>
+                    <ArrowLeft className="w-3.5 h-3.5" />
                   </div>
                 </div>
               );
             })}
-
-            {filteredNodes.length === 0 && (
-              <div className="py-12 text-center text-xs text-[#7A7369]">
-                No server hubs found matching your filter criteria.
-              </div>
-            )}
           </div>
 
-          {/* Right: Active Imperial Node Inspection Card */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-[#292725] to-[#1C1A18] text-white rounded-3xl p-7 sm:p-8 shadow-xl border border-[#B69A75]/30">
-            <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
-              <div>
-                <span className="text-[10px] font-mono tracking-widest text-[#B69A75] uppercase block mb-1">
-                  ACTIVE BASTION SELECTION
-                </span>
-                <h3 className="font-cinzel text-xl font-bold text-white">
-                  {activeNode.city}
-                </h3>
-              </div>
-              <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-[#B69A75]">
-                <Shield className="w-4.5 h-4.5" />
-              </div>
-            </div>
-
-            {/* Live Cryptographic Tunnel Simulation */}
-            <div className="space-y-4 mb-6">
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                <div className="flex items-center justify-between text-xs text-white/60">
-                  <span>Masked Exit IP</span>
-                  <span className="font-mono text-white">{activeNode.ip}</span>
-                </div>
-                <div className="flex items-center justify-between text-xs text-white/60">
-                  <span>RAM Volatile Scrub</span>
-                  <span className="text-[#B69A75] flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> Active (0 Disk Writes)
+          {/* Dossier Card for Selected Kingdom */}
+          <div className="lg:col-span-5 bg-white rounded-3xl border border-[#DED7CB] p-7 sm:p-8 shadow-lg flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b border-[#EAE4DA]">
+                <div>
+                  <span className="text-[11px] font-mono text-[#8C7052] block">
+                    {activeKingdom.year}
                   </span>
+                  <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#292725] mt-0.5">
+                    {activeKingdom.name}
+                  </h3>
                 </div>
-                <div className="flex items-center justify-between text-xs text-white/60">
-                  <span>Round-Trip Latency</span>
-                  <span className="font-mono text-white">
-                    {testingPing ? "Probing..." : `${activeNode.ping} ms`}
-                  </span>
+                <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#B69A75]/30 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-[#B69A75]" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-lg bg-white/5 border border-white/5">
-                  <span className="text-white/50 block text-[10px]">THROUGHPUT</span>
-                  <span className="font-mono font-semibold text-white">
-                    {activeNode.bandwidth}
-                  </span>
-                </div>
-                <div className="p-3 rounded-lg bg-white/5 border border-white/5">
-                  <span className="text-white/50 block text-[10px]">TUNNEL CIPHER</span>
-                  <span className="font-mono font-semibold text-white">
-                    ChaCha20-Poly1305
-                  </span>
+              <div className="py-6 space-y-4">
+                <blockquote className="font-editorial text-base sm:text-lg text-[#292725] leading-relaxed p-4 bg-[#FAF7F2] rounded-2xl border-r-4 border-[#B69A75] italic">
+                  {activeKingdom.quote}
+                </blockquote>
+
+                <div className="space-y-2 text-xs text-[#5C5752] bg-[#FAF8F5] p-4 rounded-xl border border-[#EAE3D5]">
+                  <div className="flex justify-between">
+                    <span className="font-semibold text-[#8C7052]">الحَاكِمُ الرَّاعِي:</span>
+                    <span className="text-[#292725]">{activeKingdom.regent}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold text-[#8C7052]">المَمْلَكَة:</span>
+                    <span className="text-[#292725]">{activeKingdom.realm}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold text-[#8C7052]">فِرْقَةُ الحُرَّاس:</span>
+                    <span className="text-[#292725]">{activeKingdom.guards}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold text-[#8C7052]">الخَتْمُ السَّرْمَدِيّ:</span>
+                    <span className="text-[#292725]">{activeKingdom.seal}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Test Latency Action */}
-            <button
-              type="button"
-              onClick={handleTestLatency}
-              className="w-full py-3 rounded-full bg-[#B69A75] hover:bg-[#A38662] text-[#1A1816] font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
-            >
-              <Zap className="w-3.5 h-3.5" />
-              <span>{testingPing ? "Measuring Latency..." : "Measure Round-Trip Ping"}</span>
-            </button>
-
-            <div className="mt-4 text-center">
-              <a
-                href="#download"
-                className="inline-flex items-center gap-1.5 text-xs text-[#B69A75] hover:text-white transition-colors"
+            <div className="pt-4 border-t border-[#EAE4DA] flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => handleCopyQuote(activeKingdom)}
+                className="flex-1 py-2.5 px-4 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs"
               >
-                <span>Deploy WireGuard config profile</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                {copiedId === activeKingdom.id ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-[#B69A75]" />
+                    <span>تَمَّ نَسْخُ حِكْمَةِ القَلْعَة</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-[#FAF7F2]" />
+                    <span>نَسْخُ قَوْلِ هَذِهِ المَمْلَكَة</span>
+                  </>
+                )}
+              </button>
+
+              <a
+                href="#pricing"
+                className="p-2.5 rounded-full border border-[#DED7CB] hover:bg-[#FAF7F2] text-[#8C7052] transition-colors"
+                title="الانتقال إلى عهود الانضمام"
+              >
+                <Compass className="w-4 h-4" />
               </a>
             </div>
           </div>
-
         </div>
       </div>
     </section>

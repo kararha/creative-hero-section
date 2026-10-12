@@ -1,79 +1,84 @@
 import { useState } from "react";
-import { Cpu, KeyRound, ShieldAlert, Globe2, Check, RefreshCw } from "lucide-react";
+import { Shield, Sparkles, Sword, Compass, Check, Copy } from "lucide-react";
 
 export default function FeaturesSection() {
   const [activeTab, setActiveTab] = useState<number>(0);
-  const [testSuccess, setTestSuccess] = useState(false);
+  const [copiedQuote, setCopiedQuote] = useState(false);
 
-  const pillars = [
+  const sagas = [
     {
-      id: "ram-only",
-      title: "Volatile Memory-Only Fleet",
-      subtitle: "Diskless Volatile Architecture",
-      icon: Cpu,
-      summary:
-        "Every Legion node boots strictly into volatile RAM from read-only cryptographic images. No spinning platters, no SSD cache. If power is interrupted, 100% of ephemeral data ceases to exist.",
+      id: "steadfastness",
+      title: "عَهْدُ الصُّمُودِ وَحُصُونُ الجَبَل",
+      subtitle: "حِكْمَةُ القَائِدِ أُورِيلْيُوس الصَّامِد",
+      icon: Shield,
+      quote:
+        "«مَنْ لَمْ تَصْقُلْهُ عَوَاصِفُ الشِّتَاءِ لَمْ يَسْتَحِقَّ دِفْءَ شَمْسِ الرَّبِيع، وَالحِصْنُ المَنِيعُ لَا تَبْنِيهِ الحِجَارَةُ وَحْدَهَا، بَلْ قُلُوبُ الرِّجَالِ الَّذِينَ لَا يَنْكَسِرُونَ أَمَامَ المِحَن.»",
+      narrator: "سِجِلَّاتُ مَمَرِّ الثُّلُوج — العَامُ ٤١٢ قَبْلَ الانْكِسَار",
       metrics: [
-        { label: "Storage Persistence", value: "0 bytes" },
-        { label: "Scrub Frequency", value: "Every 60s" },
-        { label: "Hardware Ownership", value: "Bare Metal" },
+        { label: "ثَبَاتُ العَزِيمَة", value: "مُطْلَق" },
+        { label: "مَنَاعَةُ الحُصُون", value: "أَبَدِيَّة" },
+        { label: "خَتْمُ الأَسْلَاف", value: "مَوْثُوق" },
       ],
       details:
-        "Standard VPN providers write logging queues to disk before truncation. Legion’s kernel patches completely eliminate disk drivers from the runtime kernel image.",
+        "حِينَ يَفِرُّ الجَمِيعُ أَمَامَ زَمْجَرَةِ الرِّيَاحِ، يَقِفُ حُمَاةُ الفَيْلَقِ كَأَطْوَادِ الجِبَالِ الرَّاسِيَة، لَا يَشْغَلُهُمْ صَدَى العَاصِفَة، بَلْ يَنْظُرُونَ دَوْمًا إِلَى مَجْدِ الغَدِ المُرْتَقَب.",
     },
     {
-      id: "crypto",
-      title: "Post-Quantum Cryptographic Ciphers",
-      subtitle: "ChaCha20-Poly1305 & ML-KEM",
-      icon: KeyRound,
-      summary:
-        "Combining high-throughput ChaCha20 authenticated streaming encryption with NIST-standardized Kyber post-quantum key encapsulation to defeat current and future quantum decryption attacks.",
+      id: "silence",
+      title: "حِكْمَةُ الصَّمْتِ وَنُورُ الأَسْرَار",
+      subtitle: "دِيوَانُ عُيُونِ الأَبْرَاجِ العَاجِيَّة",
+      icon: Sparkles,
+      quote:
+        "«الصَّمْتُ سَيْفٌ لَا يُرَى، وَالحِكْمَةُ دِرْعٌ لَا يُثْلَم؛ مَنْ حَفِظَ سِرَّهُ سَادَ قَوْمَهُ، وَمَنْ أَرْخَى لِسَانَهُ سَلَبَ مَجْدَهُ بِيَدِهِ قَبْلَ أَنْ يَنَالَهُ خَصْمُه.»",
+      narrator: "أَلْوَاحُ الكَاهِنَةِ فِيدِيلْيَا — بُرْجُ الحُكَمَاءِ الأَوَّل",
       metrics: [
-        { label: "Cipher Suite", value: "ChaCha20-Poly1305" },
-        { label: "Key Exchange", value: "ML-KEM (Kyber-768)" },
-        { label: "Perfect Forward Secrecy", value: "Every 15 min" },
+        { label: "كِتْمَانُ العُهُود", value: "١٠٠٪" },
+        { label: "بَصِيرَةُ النَّفْس", value: "نَافِذَة" },
+        { label: "نَقَاءُ السَّرِيرَة", value: "خَالِص" },
       ],
       details:
-        "Harvest-now, decrypt-later surveillance programs capture encrypted ciphertext today for future quantum decryption. Legion’s quantum-resistant handshakes neutralize this threat at the protocol layer.",
+        "الأَقْوَالُ العَظِيمَةُ لَا تُقَالُ صِيَاحًا فِي السَّاحَاتِ العَامَّة، بَلْ تُنْقَشُ بِهُدُوءٍ فِي أَعْمَاقِ القُلُوبِ وَتَسْرِي مَعَ الرِّيَاحِ نُورًا يَهْدِي السَّائِرِينَ فِي عَتَمَةِ اللَّيْل.",
     },
     {
-      id: "jurisdiction",
-      title: "Sovereign Swiss Sanctuary",
-      subtitle: "Article 13 Federal Protection",
-      icon: ShieldAlert,
-      summary:
-        "Incorporated and physically anchored in Switzerland. We operate completely beyond the reach of Five Eyes and Fourteen Eyes surveillance cartels, protected by rigorous federal privacy jurisprudence.",
+      id: "chivalry",
+      title: "شَرَفُ السَّيْفِ وَعَدَالَةُ الفُرْسَان",
+      subtitle: "مِيثَاقُ الفُرْسَانِ السَّبْعَة",
+      icon: Sword,
+      quote:
+        "«السَّيْفُ فِي يَدِ الظَّالِمِ هَلَاك، وَفِي يَدِ الفَارِسِ عَدْلٌ وَمَلَاذ؛ لَا تَسْتَلَّ سِلَاحَكَ إِلَّا لِرَفْعِ ضَيْمٍ أَوْ حِمَايَةِ عَهْدٍ قَطَعْتَهُ لِلْمُسْتَضْعَفِينَ فِي الأَرْض.»",
+      narrator: "الفَارِسُ لِيُونِيد الذَّهَبِيّ — مَعْرَكَةُ السُّهُولِ الخَضْرَاء",
       metrics: [
-        { label: "Jurisdiction", value: "Zurich, CH" },
-        { label: "Audit Rating", value: "PwC Tier 1" },
-        { label: "Warrant Canary", value: "0 Subpoenas" },
+        { label: "نُصْرَةُ الحَقّ", value: "وَاجِبٌ شَرْعِيّ" },
+        { label: "شَرَفُ الفَارِس", value: "لَا يُبَاع" },
+        { label: "عَهْدُ الأَمَان", value: "مُقَدَّس" },
       ],
       details:
-        "Swiss federal courts strictly prohibit warrantless data preservation orders against zero-log communication providers. Foreign court orders possess zero legal extraterritorial effect.",
+        "القُوَّةُ المُجَرَّدَةُ دُونَ رَحْمَةٍ هِيَ طُغْيَانٌ زَائِل، أَمَّا الشَّجَاعَةُ الحَقِيقِيَّةُ فَهِيَ أَنْ تَقِفَ مَعَ الحَقِّ وَلَوْ كُنْتَ وَحِيدًا أَمَامَ جَيْشٍ مِنْ أَهْلِ البَاطِل.",
     },
     {
-      id: "stealth",
-      title: "Stealth Obfuscation Ingress",
-      subtitle: "Deep Packet Inspection Immunity",
-      icon: Globe2,
-      summary:
-        "Patented traffic randomization disguises VPN packets as indistinguishable HTTPS/TLS 1.3 multimedia streams, penetrating restrictive institutional and national firewalls without latency penalties.",
+      id: "voyages",
+      title: "أَسْفَارُ الرِّيَاحِ وَسِيَرُ المَمَالِك",
+      subtitle: "مَخْطُوطَاتُ الرَّحَّالَةِ الأَقْدَمِين",
+      icon: Compass,
+      quote:
+        "«سَافِرْ مَعَ الشَّمْسِ حَيْثُ غَرَبَتْ، وَتَعَلَّمْ مِنْ كُلِّ أَرْضٍ حِكْمَةَ أَهْلِهَا؛ فَإِنَّ الأُمَمَ تَفْنَى وَتَبْقَى الحِكَمُ نُجُومًا تَهْدِي الحَائِرِينَ فِي بَيْدَاءِ الدَّهْر.»",
+      narrator: "الرَّحَّالَةُ إِدْرِيسِيُون الحَكِيم — دِيوَانُ مَا وَرَاءَ البِحَار",
       metrics: [
-        { label: "DPI Resistance", value: "100% Undetected" },
-        { label: "Throughput Overhead", value: "< 1.2%" },
-        { label: "Port Agility", value: "Dynamic 443/8443" },
+        { label: "اتِّسَاعُ الأُفُق", value: "شَاسِع" },
+        { label: "تَنَوُّعُ الحِكَم", value: "جَامِع" },
+        { label: "دَوَامُ الأَثَر", value: "خَالِد" },
       ],
       details:
-        "Authoritarian network filters actively target WireGuard packet signatures. Our Imperial Cloak module normalizes packet entropy and inter-packet timing to mimic normal web video traffic.",
+        "كُلُّ مَمْلَكَةٍ بَادَتْ تَرَكَتْ وَرَاءَهَا عِبْرَةً فِي حَجَرٍ أَوْ رَقٍّ قَدِيم، وَمَنْ جَمَعَ عِبَرَ المَاضِي مَلَكَ مَفَاتِيحَ الحَاضِرِ وَأَبْوَابَ المُسْتَقْبَل.",
     },
   ];
 
-  const handleSimulateHandshake = () => {
-    setTestSuccess(true);
-    setTimeout(() => setTestSuccess(false), 2400);
-  };
+  const current = sagas[activeTab];
 
-  const current = pillars[activeTab];
+  const handleCopy = () => {
+    navigator.clipboard?.writeText(`${current.quote} — ${current.narrator}`);
+    setCopiedQuote(true);
+    setTimeout(() => setCopiedQuote(false), 2200);
+  };
 
   return (
     <section
@@ -83,32 +88,31 @@ export default function FeaturesSection() {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-2xl mb-14 sm:mb-18">
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#8C7052] uppercase font-cinzel block mb-3">
-            01. CORE CAPABILITIES
+          <span className="text-xs font-semibold tracking-normal text-[#8C7052] font-cinzel block mb-3">
+            ٠١. رَكَائِزُ المَجْدِ وَالمَآثِر
           </span>
           <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-bold text-[#292725] tracking-tight leading-tight mb-5">
-            THE IMPERIAL DEFENSE PILLARS
+            أَقْوَالُ الخَالِدِينَ وَسِيَرُ الفُرْسَان
           </h2>
           <p className="text-sm sm:text-base text-[#5C5752] font-sans-clean leading-relaxed">
-            Privacy is not a luxury configuration setting; it is an architectural
-            mandate. Inspect the four cryptographic pillars defending the Legion empire.
+            لَمْ تَكُنِ المَمَالِكُ تُبْنَى بِالحِجَارَةِ وَحْدَهَا، بَلْ بِأَقْوَالِ الحُكَمَاءِ وَعُهُودِ الفُرْسَانِ الَّتِي نُقِشَتْ عَلَى صُخُورِ الزَّمَانِ لِتَبْقَى حِصْنًا مَنِيعًا لِلأَجْيَال.
           </p>
         </div>
 
         {/* Bento Grid Architecture of Features */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/* Left Column: Interactive Pillar Selectors (4 items) */}
+          {/* Right/Left Column (RTL): Interactive Pillar Selectors (4 items) */}
           <div className="lg:col-span-5 space-y-3">
-            {pillars.map((pillar, idx) => {
-              const Icon = pillar.icon;
+            {sagas.map((saga, idx) => {
+              const Icon = saga.icon;
               const isSelected = activeTab === idx;
               return (
                 <button
-                  key={pillar.id}
+                  key={saga.id}
                   type="button"
                   onClick={() => setActiveTab(idx)}
-                  className={`w-full text-left p-5 sm:p-6 rounded-2xl border transition-all duration-200 cursor-pointer flex items-start gap-4 ${
+                  className={`w-full text-right p-5 sm:p-6 rounded-2xl border transition-all duration-200 cursor-pointer flex items-start gap-4 ${
                     isSelected
                       ? "bg-white border-[#B69A75] shadow-md -translate-y-0.5"
                       : "bg-white/50 border-white/80 hover:bg-white/80 hover:border-[#D5CBBF] shadow-2xs"
@@ -125,15 +129,15 @@ export default function FeaturesSection() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-[11px] font-mono tracking-wider text-[#8C7052] uppercase font-medium">
-                        {pillar.subtitle}
+                      <span className="text-[11px] font-mono tracking-wider text-[#8C7052] font-medium">
+                        {saga.subtitle}
                       </span>
                       <span className="text-[11px] font-mono text-[#8C7052]">
-                        0{idx + 1}
+                        ٠{idx + 1}
                       </span>
                     </div>
                     <h3 className="font-cinzel text-base font-bold text-[#292725] truncate">
-                      {pillar.title}
+                      {saga.title}
                     </h3>
                   </div>
                 </button>
@@ -141,12 +145,12 @@ export default function FeaturesSection() {
             })}
           </div>
 
-          {/* Right Column: In-Depth Sovereign Technical Specification Display */}
+          {/* Detailed Display of Active Saga */}
           <div className="lg:col-span-7 bg-white rounded-3xl border border-[#DED7CB] p-7 sm:p-9 shadow-lg">
             <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#EAE4DA]">
               <div>
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#8C7052]">
-                  SPECIFICATION DOSSIER
+                <span className="text-[11px] font-mono tracking-wider text-[#8C7052]">
+                  دِيوَانُ الحِكَمِ الإِمْبِرَاطُورِيَّة
                 </span>
                 <h3 className="font-cinzel text-2xl font-bold text-[#292725] mt-1">
                   {current.title}
@@ -154,34 +158,38 @@ export default function FeaturesSection() {
               </div>
               <button
                 type="button"
-                onClick={handleSimulateHandshake}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase bg-[#F7F3EF] hover:bg-[#292725] hover:text-white border border-[#B69A75]/40 text-[#292725] transition-all cursor-pointer shadow-2xs"
+                onClick={handleCopy}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-[#F7F3EF] hover:bg-[#292725] hover:text-white border border-[#B69A75]/40 text-[#292725] transition-all cursor-pointer shadow-2xs"
               >
-                {testSuccess ? (
+                {copiedQuote ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-[#B69A75]" />
-                    <span>Cryptographic Audit Pass</span>
+                    <span>تَمَّ نَسْخُ الحِكْمَة</span>
                   </>
                 ) : (
                   <>
-                    <RefreshCw className="w-3.5 h-3.5 text-[#8C7052]" />
-                    <span>Verify Live Cryptography</span>
+                    <Copy className="w-3.5 h-3.5 text-[#8C7052]" />
+                    <span>نَسْخُ القَوْلِ المَأْثُور</span>
                   </>
                 )}
               </button>
             </div>
 
-            {/* Summary & Architectural Description */}
+            {/* Quote Body with Calligraphy Styling */}
             <div className="py-6 space-y-4">
-              <p className="text-sm sm:text-base text-[#423E3A] leading-relaxed">
-                {current.summary}
-              </p>
+              <blockquote className="font-editorial text-lg sm:text-xl text-[#292725] leading-loose p-5 bg-[#FAF7F2] rounded-2xl border-r-4 border-[#B69A75] italic">
+                {current.quote}
+              </blockquote>
+              <div className="text-xs font-semibold text-[#8C7052] flex items-center gap-2">
+                <span>المَصْدَر:</span>
+                <span className="text-[#5C5752] font-normal">{current.narrator}</span>
+              </div>
               <p className="text-xs sm:text-sm text-[#736B62] leading-relaxed font-sans-clean bg-[#F7F4EE] p-4 rounded-xl border border-[#EAE3D5]">
                 {current.details}
               </p>
             </div>
 
-            {/* Quantified Rigor Metrics */}
+            {/* Quantified Chivalric Metrics */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#EAE4DA]">
               {current.metrics.map((metric) => (
                 <div
