@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-ivory: #F7F3EF;
+    --color-gold: #B69A75;
+    --color-bronze: #8C7052;
+    --color-charcoal: #292725;
+    --color-pale-gray: #E8E3DE;
+  }
+
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: #292725;
+    background-color: #F7F3EF;
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.font-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans-clean {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Apple Liquid Glass Design System Specification */
+.apple-liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.32) 40%,
+    rgba(255, 255, 255, 0.48) 100%
+  );
+  backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(106%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(106%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 32px 64px -16px rgba(41, 39, 37, 0.14),
+    0 16px 32px -12px rgba(0, 0, 0, 0.08),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 0 28px 0 rgba(255, 255, 255, 0.22);
+}
+
+.apple-liquid-glass-dark {
+  background: linear-gradient(
+    135deg,
+    rgba(36, 33, 30, 0.82) 0%,
+    rgba(20, 18, 16, 0.90) 50%,
+    rgba(30, 27, 24, 0.80) 100%
+  );
+  backdrop-filter: blur(32px) saturate(180%) contrast(110%) brightness(96%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%) contrast(110%) brightness(96%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 36px 72px -16px rgba(0, 0, 0, 0.55),
+    0 16px 32px -12px rgba(0, 0, 0, 0.35),
+    inset 0 1.5px 2px 0 rgba(255, 240, 215, 0.45),
+    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 30px 0 rgba(182, 154, 117, 0.16);
+}
+
+.glass-ivory {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 24px 48px -12px rgba(41, 39, 37, 0.1),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-nav {
+  background: rgba(247, 243, 239, 0.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 12px 24px -8px rgba(41, 39, 37, 0.08),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-dark {
+  background: rgba(30, 28, 26, 0.85);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(182, 154, 117, 0.22);
+  box-shadow:
+    0 28px 56px -14px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1.5px 0 rgba(255, 240, 215, 0.35);
+}
+
+/* Restrained iridescent refraction overlay */
+.iridescent-sheen {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(230, 215, 195, 0.35) 25%,
+    rgba(200, 220, 240, 0.22) 48%,
+    rgba(240, 215, 230, 0.25) 70%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Subtle animated light refraction */
+@keyframes iridescent-drift {
+  0% {
+    transform: translate(-10%, -10%) rotate(0deg);
+  }
+  50% {
+    transform: translate(8%, 10%) rotate(3deg);
+  }
+  100% {
+    transform: translate(-10%, -10%) rotate(0deg);
+  }
+}
+
+.animate-iridescent {
+  animation: iridescent-drift 14s ease-in-out infinite alternate;
+}
+
+/* Silk veil drifting animation */
+@keyframes veil-flow {
+  0% {
+    transform: translateX(0px) translateY(0px) skewX(0deg);
+  }
+  50% {
+    transform: translateX(12px) translateY(-6px) skewX(-1.5deg);
+  }
+  100% {
+    transform: translateX(0px) translateY(0px) skewX(0deg);
+  }
+}
+
+.animate-veil-flow {
+  animation: veil-flow 18s ease-in-out infinite;
+}
+
+/* Gentle floating animation for cards */
+@keyframes float-subtle {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-subtle 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-subtle 9.5s ease-in-out infinite;
+  animation-delay: -3.5s;
+}
+
+/* Custom scrollbar for server list */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(182, 154, 117, 0.4);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(182, 154, 117, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

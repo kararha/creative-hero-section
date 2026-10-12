@@ -1,0 +1,6 @@
+{
+  "name": "LEGION VPN — Imperial Privacy & Sovereign Security",
+  "description": "Conquer the web unseen and untouchable. Editorial-grade, RAM-only, post-quantum zero-knowledge VPN network inspired by imperial Roman strength.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
