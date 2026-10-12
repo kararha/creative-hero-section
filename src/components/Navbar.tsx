@@ -35,7 +35,7 @@ export default function Navbar({
       zRadius: 40,
       opacity: 1,
       saturation: -0.25,
-      brightness: 0,
+      brightness: -0.23,
       shadowOpacity: 0.3,
       shadowSpread: 10,
       bevelMode: 0,
@@ -91,7 +91,7 @@ export default function Navbar({
 
         {/* Center: Translucent Pill-Shaped Navigation Container with WebGL LiquidGlass */}
         <nav
-          className="glass-nav-pill hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full glass-nav shadow-xs border border-white/80"
+          className="glass-nav-pill liquid-glass-card liquid-glass-refraction hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/90 select-none overflow-hidden transition-all duration-300"
           data-config={JSON.stringify({
             blurAmount: 0.27,
             refraction: 2,
@@ -104,11 +104,15 @@ export default function Navbar({
             zRadius: 40,
             opacity: 1,
             saturation: -0.25,
-            brightness: 0,
+            brightness: -0.23,
             shadowOpacity: 0.3,
             shadowSpread: 10,
             bevelMode: 0,
           })}
+          style={{
+            boxShadow:
+              "0 16px 36px -8px rgba(41, 39, 37, 0.16), 0 6px 16px -4px rgba(0, 0, 0, 0.07), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.35)",
+          }}
           aria-label="التنقل الرئيسي"
         >
           {navLinks.map((link) => {
@@ -118,10 +122,10 @@ export default function Navbar({
                 key={link.label}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className={`px-4 py-1.5 text-xs font-semibold tracking-normal transition-all rounded-full whitespace-nowrap ${
+                className={`relative z-10 px-4 py-1.5 text-xs font-semibold tracking-normal transition-all rounded-full whitespace-nowrap ${
                   isActive
-                    ? "bg-[#E8E3DE]/90 text-[#292725] shadow-2xs font-bold"
-                    : "text-[#5C5752] hover:text-[#292725] hover:bg-white/40"
+                    ? "text-[#1F1D1B] font-bold bg-white/50 shadow-2xs"
+                    : "text-[#4A4540] hover:text-[#1F1D1B] hover:bg-white/30"
                 }`}
               >
                 {link.label}
