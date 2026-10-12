@@ -3,7 +3,7 @@ import SpotlightRevealHero from "./artwork/SpotlightRevealHero.tsx";
 import ImperialHeroArtwork from "./artwork/ImperialHeroArtwork.tsx";
 import ImperialEmblem from "./artwork/ImperialEmblem.tsx";
 import { useLiquidGlass } from "../hooks/useLiquidGlass.ts";
-import { ShieldCheck, Scroll, CheckCircle2, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 interface HeroProps {
   artVariant: "gold" | "marble" | "spotlight";
@@ -29,7 +29,7 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
       zRadius: 40,
       opacity: 1,
       saturation: -0.25,
-      brightness: 0,
+      brightness: -0.23,
       shadowOpacity: 0.3,
       shadowSpread: 10,
       bevelMode: 0,
@@ -146,7 +146,7 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
       {/* RIGHT BOTTOM LIQUID GLASS CARD (Powered by @ybouane/liquidglass) */}
       {/* ========================================================= */}
       <div
-        className="liquid-glass-card absolute left-4 sm:left-8 lg:left-12 bottom-16 sm:bottom-20 z-30 w-[300px] sm:w-[330px] rounded-[40px] p-5 sm:p-6 select-none border border-white/75 shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-[1.015]"
+        className="liquid-glass-card liquid-glass-refraction absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-auto sm:right-[14%] md:right-[20%] lg:right-[26%] xl:right-[31%] bottom-10 sm:bottom-14 z-30 w-[calc(100%-2rem)] max-w-[320px] sm:max-w-none sm:w-[330px] md:w-[350px] min-h-[440px] sm:min-h-[480px] rounded-[40px] p-7 sm:p-8 select-none transition-all duration-300 hover:scale-[1.015] flex flex-col justify-between overflow-hidden"
         data-config={JSON.stringify({
           blurAmount: 0.27,
           refraction: 2,
@@ -159,48 +159,48 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
           zRadius: 40,
           opacity: 1,
           saturation: -0.25,
-          brightness: 0,
+          brightness: -0.23,
           shadowOpacity: 0.3,
           shadowSpread: 10,
           bevelMode: 0,
         })}
         style={{
           boxShadow:
-            "0 32px 64px -16px rgba(41, 39, 37, 0.18), 0 16px 32px -12px rgba(0, 0, 0, 0.1), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+            "0 32px 64px -16px rgba(41, 39, 37, 0.22), 0 16px 32px -12px rgba(0, 0, 0, 0.12), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
         }}
       >
-        {/* Top Header: Security Emblem & ChaCha20 Badge */}
-        <div className="flex items-center justify-between mb-3.5">
-          <div className="w-8.5 h-8.5 rounded-full bg-white/85 border border-[#B69A75]/40 flex items-center justify-center shadow-xs">
-            <ShieldCheck className="w-4.5 h-4.5 text-[#B69A75]" />
-          </div>
-          <div className="flex items-center gap-1.5 text-[10px] tracking-normal text-[#736B63] bg-white/70 px-2.5 py-1 rounded-full border border-white/80 shadow-2xs backdrop-blur-xs font-semibold">
-            <Scroll className="w-3 h-3 text-[#B69A75]" />
-            <span>خَتْمُ الحِكْمَةِ العَتِيقَة</span>
+        {/* Prismatic Rainbow Caustic Dispersion Layer */}
+        <div className="liquid-glass-caustic-border" aria-hidden="true" />
+        <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
+        {/* Top Header: Circular Biscuit Emblem with Shield (Exact match to image.png) */}
+        <div className="relative z-10 flex items-center justify-start">
+          <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs">
+            <svg
+              viewBox="0 0 24 24"
+              className="w-5 h-5 fill-[#24211E] text-[#24211E]"
+              aria-hidden="true"
+            >
+              <path d="M12 2L4 5.5v5.5c0 5.25 3.4 10.15 8 11.35 4.6-1.2 8-6.1 8-11.35V5.5L12 2z" />
+            </svg>
           </div>
         </div>
 
-        {/* Card Body */}
-        <div className="space-y-1.5 mb-3.5">
-          <h3 className="font-cinzel text-base sm:text-lg font-bold text-[#292725] tracking-tight leading-snug">
-            حِصْنُ الخَالِدِينَ
-            <span className="block text-[#8C7052] font-semibold text-xs sm:text-sm mt-0.5">
-              — مَنِيعٌ، إِمْبِرَاطُورِيّ
+        {/* Card Body: Editorial Headline & Subcopy (Exact match to image.png in Arabic) */}
+        <div className="relative z-10 pt-16 sm:pt-20 pb-2">
+          <h3 className="font-cinzel text-2xl sm:text-[26px] font-bold text-[#24211E] tracking-tight leading-[1.2]">
+            احْمِ سِجِلَّاتِ المَجْد
+            <span className="block text-[#47413B] font-semibold text-lg sm:text-[20px] font-sans-clean mt-1">
+              — صَامِدَةٌ لَا تَنْكَسِر،
+            </span>
+            <span className="block text-[#24211E] mt-0.5">
+              مَنِيعَةٌ، خَالِدَةٌ، أَبَدِيَّة
             </span>
           </h3>
 
-          <p className="text-[11px] leading-relaxed text-[#5C5752] font-sans-clean font-normal">
-            «لَا تَهَابَنَّ صَلِيلَ السُّيُوفِ إِذَا كَانَتْ عَزِيمَتُكَ نُورَ الحَقِيقَة، فَمَا صَمَدَ الدَّهْرُ إِلَّا لِمَنْ ثَبَتَ فِي وَجْهِ العَاصِفَةِ بِصَمْتٍ وَوَقَار.»
+          <p className="mt-4 text-xs sm:text-[13px] leading-relaxed text-[#5A534B] font-sans-clean font-normal">
+            احْفَظْ مَسَارَكَ، وَاحْجُبْ أَثَرَكَ، وَاعْبُرْ حُدُودَ المَمَالِكِ بِلَا قَيْد. مَنَاعَةٌ إِمْبِرَاطُورِيَّةٌ سَرْمَدِيَّة — لَا رَقَابَةَ تَنَالُ مِنْكَ، وَلَا حُدُودَ تُثْنِيكَ، وَلَا مَسَاوَمَةَ عَلَى سِيَادَتِك.
           </p>
-        </div>
-
-        {/* Telemetry Footer */}
-        <div className="pt-3 border-t border-[#E8E2D8]/80 flex items-center justify-between text-[10px] text-[#736B63]">
-          <span className="flex items-center gap-1 text-[#4A4540]">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#B69A75]" />
-            مَوْثُوقٌ بِأَلْوَاحِ الأَسْلَاف
-          </span>
-          <span className="text-[#8C7052] font-semibold">سِجِلٌّ نَقِيٌّ خَالِد</span>
         </div>
       </div>
 
