@@ -110,42 +110,54 @@ export default function DownloadSection() {
                 key={p.id}
                 type="button"
                 onClick={() => setSelectedPlatform(p.id)}
-                className={`p-4 sm:p-5 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2 ${
+                className={`p-4 sm:p-5 rounded-[24px] border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2.5 relative overflow-hidden ${
                   isSelected
-                    ? "bg-white border-[#B69A75] shadow-md -translate-y-0.5"
-                    : "bg-white/60 border-white/80 hover:bg-white hover:border-[#D5CBBF] shadow-2xs"
+                    ? "liquid-glass-refraction border-[#B69A75] shadow-md -translate-y-0.5"
+                    : "bg-white/60 hover:bg-white/85 border-white/80 shadow-2xs"
                 }`}
               >
+                {isSelected && (
+                  <>
+                    <div className="liquid-glass-caustic-border" aria-hidden="true" />
+                    <div className="liquid-glass-prism-ring" aria-hidden="true" />
+                  </>
+                )}
+                {/* Circular Biscuit Emblem */}
                 <div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+                  className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors shadow-xs relative z-10 ${
                     isSelected
-                      ? "bg-[#292725] text-[#FAF7F2]"
+                      ? "bg-[#C4A88E] text-[#24211E]"
                       : "bg-[#EAE4DC] text-[#786E64]"
                   }`}
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-                <div className="font-cinzel text-xs sm:text-sm font-bold text-[#292725]">
+                <div className="font-cinzel text-xs sm:text-sm font-bold text-[#24211E] relative z-10">
                   {p.name}
                 </div>
-                <div className="text-[10px] text-[#7A7369]">{p.sub}</div>
+                <div className="text-[10px] text-[#7A7369] relative z-10">{p.sub}</div>
               </button>
             );
           })}
         </div>
 
         {/* Active Platform Download Details Box */}
-        <div className="bg-white rounded-3xl border border-[#DED7CB] p-7 sm:p-10 shadow-lg max-w-3xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-[#EAE4DA]">
+        <div className="liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-7 sm:p-10 shadow-lg max-w-3xl mx-auto relative overflow-hidden">
+          {/* Prismatic Caustics & Reflection Layers */}
+          <div className="liquid-glass-caustic-border" aria-hidden="true" />
+          <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
+          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-[#292725]/10">
             <div className="flex items-center gap-4 text-center sm:text-right">
-              <div className="w-14 h-14 rounded-2xl bg-[#FAF7F2] border border-[#B69A75]/30 flex items-center justify-center shrink-0">
-                <BookOpen className="w-7 h-7 text-[#B69A75]" />
+              {/* Circular Biscuit Emblem */}
+              <div className="w-14 h-14 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
+                <BookOpen className="w-7 h-7 text-[#24211E]" />
               </div>
               <div>
-                <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#292725]">
+                <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#24211E]">
                   {current.name}
                 </h3>
-                <p className="text-xs text-[#7A7369]">
+                <p className="text-xs text-[#7A7369] mt-0.5">
                   {current.version} · حَجْمُ المَلَف: {current.size} · {current.reqs}
                 </p>
               </div>
@@ -163,14 +175,14 @@ export default function DownloadSection() {
 
           {/* Download Success Notice */}
           {downloadSuccess && (
-            <div className="mt-4 p-4 rounded-xl bg-[#FAF8F5] border border-[#B69A75] text-[#292725] flex items-center gap-3 animate-fade-in text-xs font-semibold">
+            <div className="relative z-10 mt-4 p-4 rounded-2xl bg-white/70 backdrop-blur-xs border border-[#B69A75] text-[#24211E] flex items-center gap-3 animate-fade-in text-xs font-semibold shadow-xs">
               <CheckCircle className="w-4 h-4 text-[#B69A75] shrink-0" />
               <span>بَدَأَ تَحْمِيلُ «{downloadSuccess}» بِنَجَاح! طَابَتْ لَكَ رِحْلَةُ الحِكْمَة.</span>
             </div>
           )}
 
           {/* Security & Checksum Verification Section */}
-          <div className="pt-6 space-y-3">
+          <div className="relative z-10 pt-6 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-[#8C7052] flex items-center gap-1.5">
                 <FileCode className="w-4 h-4" />
@@ -186,7 +198,7 @@ export default function DownloadSection() {
             </div>
 
             {showChecksum && (
-              <div className="p-3 bg-[#FAF7F2] rounded-xl border border-[#EAE3D6] font-mono text-[11px] text-[#5C5752] break-all select-all">
+              <div className="p-3.5 bg-white/60 backdrop-blur-xs rounded-xl border border-white/80 font-mono text-[11px] text-[#5C5752] break-all select-all shadow-2xs">
                 {current.sha256}
               </div>
             )}

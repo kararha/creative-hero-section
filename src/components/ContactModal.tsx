@@ -59,54 +59,58 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
       <div
-        className="relative w-full max-w-lg bg-[#FAF7F3] rounded-3xl border border-[#DED7CB] p-6 sm:p-8 shadow-2xl text-right"
+        className="relative w-full max-w-lg liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-6 sm:p-8 shadow-2xl text-right overflow-hidden border border-white/90"
         role="dialog"
         aria-modal="true"
         aria-label="نِدَاءُ دِيوَانِ الحُرَّاس"
       >
+        {/* Prismatic Caustics & Reflection Layers */}
+        <div className="liquid-glass-caustic-border" aria-hidden="true" />
+        <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-5 left-5 p-2 rounded-full text-[#7A7369] hover:text-[#292725] hover:bg-white/80 transition-colors cursor-pointer"
+          className="relative z-20 absolute top-5 left-5 p-2 rounded-full text-[#7A7369] hover:text-[#24211E] hover:bg-white/80 transition-colors cursor-pointer"
           aria-label="إِغْلَاق"
         >
           <X className="w-5 h-5" />
         </button>
 
         {submitted ? (
-          <div className="text-center py-8 space-y-4">
-            <div className="w-14 h-14 rounded-full bg-[#FAF7F2] border border-[#B69A75] mx-auto flex items-center justify-center">
-              <Check className="w-7 h-7 text-[#B69A75]" />
+          <div className="relative z-10 text-center py-8 space-y-4">
+            <div className="w-14 h-14 rounded-full bg-[#C4A88E] mx-auto flex items-center justify-center shadow-xs">
+              <Check className="w-7 h-7 text-[#24211E]" />
             </div>
-            <h3 className="font-cinzel text-2xl font-bold text-[#292725]">
+            <h3 className="font-cinzel text-2xl font-bold text-[#24211E]">
               بَلَغَتْ رِسَالَتُكَ دِيوَانَ الحُرَّاس
             </h3>
             <p className="text-xs sm:text-sm text-[#5C5752] leading-relaxed max-w-sm mx-auto">
               سَيَقُومُ أُمَنَاءُ السِّجِلَّاتِ بِمُطَالَعَةِ رِسَالَتِكَ وَالرَّدِّ عَلَيْهَا بِمَا يَلِيقُ بِأَعْرَافِ الفَيْلَق.
             </p>
-            <div className="p-3 bg-white rounded-xl border border-[#EAE3D6] font-mono text-xs text-[#8C7052] font-bold">
+            <div className="p-3.5 bg-white/70 backdrop-blur-xs rounded-xl border border-white/80 font-mono text-xs text-[#8C7052] font-bold shadow-2xs">
               رَقْمُ الرِّسَالَة: {ticketId}
             </div>
             <button
               type="button"
               onClick={handleReset}
-              className="mt-4 px-6 py-2.5 rounded-full bg-[#292725] text-white text-xs font-semibold hover:bg-[#1A1816] transition-all cursor-pointer"
+              className="mt-4 px-6 py-2.5 rounded-full bg-[#292725] text-white text-xs font-semibold hover:bg-[#1A1816] transition-all cursor-pointer shadow-xs"
             >
               العَوْدَةُ إِلَى السِّجِلَّات
             </button>
           </div>
         ) : (
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-white border border-[#B69A75]/40 flex items-center justify-center">
-                <ImperialEmblem className="w-5 h-5" color="#B69A75" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-3.5 mb-5">
+              <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
+                <ImperialEmblem className="w-5 h-5" color="#24211E" />
               </div>
               <div>
                 <span className="text-[10px] font-mono text-[#8C7052] block">
                   دِيوَانُ المُخَاطَبَاتِ الإِمْبِرَاطُورِيّ
                 </span>
-                <h3 className="font-cinzel text-xl font-bold text-[#292725]">
+                <h3 className="font-cinzel text-xl font-bold text-[#24211E]">
                   نِدَاءُ دِيوَانِ الحُرَّاس
                 </h3>
               </div>

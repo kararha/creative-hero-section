@@ -55,11 +55,20 @@ export default function ComparisonSection() {
           </p>
         </div>
 
-        {/* Comparison Table */}
-        <div className="bg-white rounded-3xl border border-[#DED7CB] overflow-hidden shadow-lg">
-          <div className="grid grid-cols-12 bg-[#FAF7F2] p-5 sm:p-6 border-b border-[#EAE3D6] font-cinzel text-xs sm:text-sm font-bold text-[#292725]">
-            <div className="col-span-5 sm:col-span-4">المِعْيَارُ وَالأَصَالَة</div>
-            <div className="col-span-4 sm:col-span-4 text-center text-[#8C7052]">
+        {/* Comparison Table Card */}
+        <div className="liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] overflow-hidden shadow-lg relative">
+          <div className="liquid-glass-caustic-border" aria-hidden="true" />
+          <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
+          {/* Table Header Row */}
+          <div className="relative z-10 grid grid-cols-12 bg-white/60 backdrop-blur-xs p-5 sm:p-6 border-b border-[#292725]/10 font-cinzel text-xs sm:text-sm font-bold text-[#24211E]">
+            <div className="col-span-5 sm:col-span-4 flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-2xs shrink-0">
+                <Check className="w-4 h-4 text-[#24211E]" />
+              </div>
+              <span>المِعْيَارُ وَالأَصَالَة</span>
+            </div>
+            <div className="col-span-4 sm:col-span-4 text-center text-[#8C7052] font-semibold">
               سِجِلَّاتُ الفَيْلَقِ الخَالِدَة
             </div>
             <div className="col-span-3 sm:col-span-4 text-center text-[#7A7369]">
@@ -67,18 +76,18 @@ export default function ComparisonSection() {
             </div>
           </div>
 
-          <div className="divide-y divide-[#EAE3D6]">
+          <div className="relative z-10 divide-y divide-[#292725]/10">
             {comparisonRows.map((row) => (
               <div
                 key={row.feature}
                 className={`grid grid-cols-12 p-4 sm:p-6 items-center text-xs sm:text-sm transition-colors ${
-                  row.highlight ? "bg-[#FAF8F5]/80" : "bg-white"
+                  row.highlight ? "bg-white/40" : "bg-transparent hover:bg-white/30"
                 }`}
               >
-                <div className="col-span-5 sm:col-span-4 font-semibold text-[#292725]">
+                <div className="col-span-5 sm:col-span-4 font-semibold text-[#24211E]">
                   {row.feature}
                 </div>
-                <div className="col-span-4 sm:col-span-4 flex items-center justify-center gap-2 text-center text-[#292725] font-medium px-2">
+                <div className="col-span-4 sm:col-span-4 flex items-center justify-center gap-2 text-center text-[#24211E] font-medium px-2">
                   <Check className="w-4 h-4 text-[#8C7052] shrink-0 hidden sm:inline" />
                   <span>{row.legion}</span>
                 </div>

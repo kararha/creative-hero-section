@@ -45,7 +45,7 @@ export default function Hero({ artVariant, onOpenDownload }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-12"
+      className="relative min-h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-8 sm:pt-12 pb-8 sm:pb-12"
       aria-label="الواجهة الإمبراطورية لسجلات الفيلق"
     >
       {/* Edge-to-Edge Hero Background Artwork with Mouse Hover Reveal */}

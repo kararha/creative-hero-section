@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, lazy, Suspense } from "react";
-import Navbar from "./components/Navbar.tsx";
+import { useState, lazy, Suspense } from "react";
 import Hero from "./components/Hero.tsx";
 import Footer from "./components/Footer.tsx";
 
@@ -26,36 +25,8 @@ function SectionFallback() {
 }
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState<string>("hero");
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [artVariant, setArtVariant] = useState<"spotlight" | "marble">("spotlight");
-
-  // Track active section for floating navbar indicator
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "features", "servers", "pricing", "download"];
-      const scrollPosition = window.scrollY + 200;
-
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleToggleArtVariant = () => {
-    setArtVariant((prev) => (prev === "spotlight" ? "marble" : "spotlight"));
-  };
+  const [artVariant] = useState<"spotlight" | "marble">("spotlight");
 
   const handleOpenDownload = () => {
     const downloadEl = document.getElementById("download");
@@ -66,14 +37,6 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#F7F3EF] text-[#292725] selection:bg-[#B69A75]/25 selection:text-[#292725]">
-      {/* Top Floating Navigation Bar */}
-      <Navbar
-        activeSection={activeSection}
-        onOpenContact={() => setIsContactOpen(true)}
-        artVariant={artVariant}
-        onToggleArtVariant={handleToggleArtVariant}
-      />
-
       {/* Main Content Sections */}
       <main>
         {/* Full-Screen Editorial Hero */}

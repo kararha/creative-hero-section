@@ -228,23 +228,31 @@ export default function ServersSection() {
                 <div
                   key={k.id}
                   onClick={() => setActiveKingdom(k)}
-                  className={`p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
+                  className={`p-5 rounded-[26px] border transition-all duration-200 cursor-pointer flex flex-col justify-between relative overflow-hidden ${
                     isSelected
-                      ? "bg-white border-[#B69A75] shadow-md -translate-y-0.5"
-                      : "bg-white/70 border-white/80 hover:bg-white hover:border-[#D5CBBF] shadow-2xs"
+                      ? "liquid-glass-refraction border-[#B69A75] shadow-md -translate-y-0.5"
+                      : "bg-white/60 hover:bg-white/85 border-white/80 shadow-2xs"
                   }`}
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FAF7F2] text-[#8C7052] border border-[#EAE3D6]">
+                  {isSelected && (
+                    <>
+                      <div className="liquid-glass-caustic-border" aria-hidden="true" />
+                      <div className="liquid-glass-prism-ring" aria-hidden="true" />
+                    </>
+                  )}
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/70 text-[#8C7052] border border-white/80">
                         {k.status}
                       </span>
-                      <Castle className="w-4 h-4 text-[#B69A75]" />
+                      <div className="w-8 h-8 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-2xs">
+                        <Castle className="w-4 h-4 text-[#24211E]" />
+                      </div>
                     </div>
-                    <h3 className="font-cinzel text-base font-bold text-[#292725] mb-1">
+                    <h3 className="font-cinzel text-base font-bold text-[#24211E] mb-1">
                       {k.name}
                     </h3>
-                    <p className="text-xs text-[#7A7369] font-sans-clean mb-3">
+                    <p className="text-xs text-[#7A7369] font-sans-clean mb-2.5">
                       {k.realm}
                     </p>
                     <p className="text-xs italic text-[#4A4540] line-clamp-2 leading-relaxed">
@@ -252,8 +260,8 @@ export default function ServersSection() {
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-[#F0EAE1] flex items-center justify-between text-[11px] text-[#8C7052]">
-                    <span>{k.regent}</span>
+                  <div className="mt-4 pt-3 border-t border-[#292725]/10 flex items-center justify-between text-[11px] text-[#8C7052] relative z-10">
+                    <span className="font-medium">{k.regent}</span>
                     <ArrowLeft className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -262,53 +270,58 @@ export default function ServersSection() {
           </div>
 
           {/* Dossier Card for Selected Kingdom */}
-          <div className="lg:col-span-5 bg-white rounded-3xl border border-[#DED7CB] p-7 sm:p-8 shadow-lg flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-[#EAE4DA]">
+          <div className="lg:col-span-5 liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-7 sm:p-8 shadow-lg flex flex-col justify-between relative overflow-hidden">
+            {/* Prismatic Caustics & Refraction Ring */}
+            <div className="liquid-glass-caustic-border" aria-hidden="true" />
+            <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
+            <div className="relative z-10">
+              <div className="flex items-center justify-between pb-4 border-b border-[#292725]/10">
                 <div>
                   <span className="text-[11px] font-mono text-[#8C7052] block">
                     {activeKingdom.year}
                   </span>
-                  <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#292725] mt-0.5">
+                  <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#24211E] mt-0.5">
                     {activeKingdom.name}
                   </h3>
                 </div>
-                <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#B69A75]/30 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-[#B69A75]" />
+                {/* Circular Biscuit Emblem */}
+                <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
+                  <Sparkles className="w-5 h-5 text-[#24211E]" />
                 </div>
               </div>
 
               <div className="py-6 space-y-4">
-                <blockquote className="font-editorial text-base sm:text-lg text-[#292725] leading-relaxed p-4 bg-[#FAF7F2] rounded-2xl border-r-4 border-[#B69A75] italic">
+                <blockquote className="font-editorial text-base sm:text-lg text-[#24211E] leading-relaxed p-4 bg-white/60 backdrop-blur-xs rounded-2xl border-r-4 border-[#B69A75] italic shadow-2xs">
                   {activeKingdom.quote}
                 </blockquote>
 
-                <div className="space-y-2 text-xs text-[#5C5752] bg-[#FAF8F5] p-4 rounded-xl border border-[#EAE3D5]">
+                <div className="space-y-2.5 text-xs text-[#5C5752] bg-white/50 backdrop-blur-xs p-4 rounded-xl border border-white/80">
                   <div className="flex justify-between">
                     <span className="font-semibold text-[#8C7052]">الحَاكِمُ الرَّاعِي:</span>
-                    <span className="text-[#292725]">{activeKingdom.regent}</span>
+                    <span className="text-[#24211E] font-medium">{activeKingdom.regent}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold text-[#8C7052]">المَمْلَكَة:</span>
-                    <span className="text-[#292725]">{activeKingdom.realm}</span>
+                    <span className="text-[#24211E] font-medium">{activeKingdom.realm}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold text-[#8C7052]">فِرْقَةُ الحُرَّاس:</span>
-                    <span className="text-[#292725]">{activeKingdom.guards}</span>
+                    <span className="text-[#24211E] font-medium">{activeKingdom.guards}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold text-[#8C7052]">الخَتْمُ السَّرْمَدِيّ:</span>
-                    <span className="text-[#292725]">{activeKingdom.seal}</span>
+                    <span className="text-[#24211E] font-medium">{activeKingdom.seal}</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-[#EAE4DA] flex items-center gap-3">
+            <div className="relative z-10 pt-4 border-t border-[#292725]/10 flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => handleCopyQuote(activeKingdom)}
-                className="flex-1 py-2.5 px-4 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                className="flex-1 py-3 px-4 rounded-full bg-[#292725] text-white hover:bg-[#1A1816] transition-all text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs"
               >
                 {copiedId === activeKingdom.id ? (
                   <>
@@ -325,7 +338,7 @@ export default function ServersSection() {
 
               <a
                 href="#pricing"
-                className="p-2.5 rounded-full border border-[#DED7CB] hover:bg-[#FAF7F2] text-[#8C7052] transition-colors"
+                className="p-3 rounded-full bg-white/70 hover:bg-white border border-[#B69A75]/30 text-[#8C7052] transition-colors shadow-2xs"
                 title="الانتقال إلى عهود الانضمام"
               >
                 <Compass className="w-4 h-4" />

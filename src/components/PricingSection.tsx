@@ -94,20 +94,28 @@ export default function PricingSection() {
             return (
               <div
                 key={plan.id}
-                className={`rounded-3xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 relative ${
+                className={`liquid-glass-card rounded-[36px] sm:rounded-[40px] p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                   plan.featured
-                    ? "bg-[#292725] text-white shadow-2xl scale-[1.02] border-2 border-[#B69A75]"
-                    : "bg-white text-[#292725] border border-[#DED7CB] shadow-lg hover:shadow-xl"
+                    ? "liquid-glass-refraction-dark text-white shadow-2xl scale-[1.02] border-2 border-[#B69A75]"
+                    : "liquid-glass-refraction text-[#292725] border border-white/90 shadow-xl hover:shadow-2xl hover:scale-[1.015]"
                 }`}
               >
+                {/* Prismatic Caustic & Rainbow Ring Layers */}
+                <div className="liquid-glass-caustic-border" aria-hidden="true" />
+                <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#B69A75] text-[#292725] text-[11px] font-bold px-4 py-1 rounded-full shadow-md">
+                  <div className="absolute top-4 left-6 z-20 bg-[#B69A75] text-[#292725] text-[11px] font-bold px-3.5 py-1 rounded-full shadow-md">
                     {plan.badge}
                   </div>
                 )}
 
-                <div>
-                  <div className="flex items-center justify-between mb-4">
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-5">
+                    {/* Circular Biscuit Emblem Badge */}
+                    <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
+                      <ShieldCheck className="w-5 h-5 text-[#24211E]" />
+                    </div>
                     <span
                       className={`text-xs font-semibold tracking-normal ${
                         plan.featured ? "text-[#B69A75]" : "text-[#8C7052]"
@@ -115,19 +123,14 @@ export default function PricingSection() {
                     >
                       {plan.cadence}
                     </span>
-                    <ShieldCheck
-                      className={`w-5 h-5 ${
-                        plan.featured ? "text-[#B69A75]" : "text-[#8C7052]"
-                      }`}
-                    />
                   </div>
 
-                  <h3 className="font-cinzel text-2xl font-bold mb-4">
+                  <h3 className="font-cinzel text-2xl font-bold mb-4 text-[#24211E] dark:text-white" style={{ color: plan.featured ? '#FAF7F2' : '#24211E' }}>
                     {plan.name}
                   </h3>
 
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className="font-cinzel text-4xl sm:text-5xl font-extrabold tracking-tight">
+                    <span className="font-cinzel text-4xl sm:text-5xl font-extrabold tracking-tight" style={{ color: plan.featured ? '#FAF7F2' : '#24211E' }}>
                       {plan.price}
                     </span>
                     <span
@@ -149,7 +152,7 @@ export default function PricingSection() {
 
                   <div
                     className={`h-px w-full mb-8 ${
-                      plan.featured ? "bg-white/15" : "bg-[#EAE4DA]"
+                      plan.featured ? "bg-white/15" : "bg-[#292725]/10"
                     }`}
                   />
 
@@ -173,17 +176,19 @@ export default function PricingSection() {
                   </ul>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleClaimAccess(plan.id)}
-                  className={`w-full py-3 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm transition-all cursor-pointer ${
-                    plan.featured
-                      ? "bg-[#B69A75] text-[#292725] hover:bg-[#C9AE89] shadow-md"
-                      : "bg-[#292725] text-white hover:bg-[#1A1816] shadow-sm"
-                  }`}
-                >
-                  اقْتَطِعْ عَهْدَ الانْتِسَاب
-                </button>
+                <div className="relative z-10">
+                  <button
+                    type="button"
+                    onClick={() => handleClaimAccess(plan.id)}
+                    className={`w-full py-3.5 rounded-full font-semibold text-xs sm:text-sm transition-all cursor-pointer ${
+                      plan.featured
+                        ? "bg-[#B69A75] text-[#292725] hover:bg-[#C9AE89] shadow-md"
+                        : "bg-[#292725] text-white hover:bg-[#1A1816] shadow-sm"
+                    }`}
+                  >
+                    اقْتَطِعْ عَهْدَ الانْتِسَاب
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -191,11 +196,14 @@ export default function PricingSection() {
 
         {/* Token modal or generated proof box */}
         {generatedToken && (
-          <div className="bg-white rounded-2xl border border-[#B69A75] p-6 max-w-xl mx-auto shadow-xl text-center space-y-3 animate-fade-in">
-            <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-[#B69A75]/40 mx-auto flex items-center justify-center">
-              <Key className="w-5 h-5 text-[#B69A75]" />
+          <div className="liquid-glass-card liquid-glass-refraction rounded-[32px] p-7 sm:p-8 max-w-xl mx-auto shadow-2xl text-center space-y-3 animate-fade-in relative overflow-hidden border border-[#B69A75]/50">
+            <div className="liquid-glass-caustic-border" aria-hidden="true" />
+            <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
+            <div className="relative z-10 w-12 h-12 rounded-full bg-[#C4A88E] mx-auto flex items-center justify-center shadow-xs">
+              <Key className="w-5 h-5 text-[#24211E]" />
             </div>
-            <h4 className="font-cinzel text-lg font-bold text-[#292725]">
+            <h4 className="relative z-10 font-cinzel text-lg font-bold text-[#24211E]">
               تَمَّ إِصْدَارُ خَتْمِ العَهْدِ الإِمْبِرَاطُورِيّ
             </h4>
             <p className="text-xs text-[#5C5752]">
