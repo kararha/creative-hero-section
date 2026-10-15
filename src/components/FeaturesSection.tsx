@@ -103,7 +103,7 @@ export default function FeaturesSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
           {/* Right/Left Column (RTL): Interactive Pillar Selectors (4 items) */}
-          <div className="lg:col-span-5 space-y-3">
+          <div className="lg:col-span-5 space-y-3.5">
             {sagas.map((saga, idx) => {
               const Icon = saga.icon;
               const isSelected = activeTab === idx;
@@ -112,33 +112,47 @@ export default function FeaturesSection() {
                   key={saga.id}
                   type="button"
                   onClick={() => setActiveTab(idx)}
-                  className={`w-full text-right p-5 sm:p-6 rounded-[28px] border transition-all duration-200 cursor-pointer flex items-start gap-4 relative overflow-hidden ${
+                  className={`w-full text-right p-5 sm:p-6 rounded-[28px] sm:rounded-[32px] liquid-glass-card liquid-glass-refraction transition-all duration-300 cursor-pointer flex items-start gap-4 relative overflow-hidden select-none hover:scale-[1.015] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75] ${
                     isSelected
-                      ? "liquid-glass-refraction border-[#B69A75] shadow-md -translate-y-0.5"
-                      : "bg-white/60 hover:bg-white/85 border-white/80 shadow-2xs"
+                      ? "ring-2 ring-[#B69A75] border-[#B69A75] shadow-xl -translate-y-0.5"
+                      : "border border-white/90 shadow-md hover:border-[#B69A75]/40"
                   }`}
+                  data-config={JSON.stringify({
+                    blurAmount: 0.27,
+                    refraction: 2,
+                    chromAberration: 0.205,
+                    edgeHighlight: 0.59,
+                    specular: 0.15,
+                    fresnel: 1,
+                    distortion: 0.08,
+                    cornerRadius: 32,
+                    zRadius: 32,
+                    opacity: 1,
+                    saturation: -0.25,
+                    brightness: -0.23,
+                    shadowOpacity: 0.3,
+                    shadowSpread: 10,
+                    bevelMode: 0,
+                  })}
+                  style={{
+                    boxShadow:
+                      "0 24px 48px -12px rgba(41, 39, 37, 0.18), 0 12px 24px -8px rgba(0, 0, 0, 0.1), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+                  }}
                 >
-                  {isSelected && (
-                    <>
-                      <div className="liquid-glass-caustic-border" aria-hidden="true" />
-                      <div className="liquid-glass-prism-ring" aria-hidden="true" />
-                    </>
-                  )}
-                  <div
-                    className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-colors shadow-xs relative z-10 ${
-                      isSelected
-                        ? "bg-[#C4A88E] text-[#24211E]"
-                        : "bg-[#EAE4DC] text-[#786E64]"
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
+                  {/* Prismatic Rainbow Caustic & Prism Ring Layers */}
+                  <div className="liquid-glass-caustic-border" aria-hidden="true" />
+                  <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
+                  {/* Circular Biscuit Emblem Badge */}
+                  <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shrink-0 shadow-xs relative z-10">
+                    <Icon className="w-5 h-5 fill-[#24211E] text-[#24211E]" />
                   </div>
                   <div className="flex-1 min-w-0 relative z-10">
                     <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-[11px] font-mono tracking-wider text-[#8C7052] font-medium">
+                      <span className="text-[11px] font-mono tracking-wider text-[#8C7052] font-semibold">
                         {saga.subtitle}
                       </span>
-                      <span className="text-[11px] font-mono text-[#8C7052]">
+                      <span className="text-[11px] font-mono text-[#8C7052] font-bold">
                         ٠{idx + 1}
                       </span>
                     </div>
@@ -152,7 +166,30 @@ export default function FeaturesSection() {
           </div>
 
           {/* Detailed Display of Active Saga */}
-          <div className="lg:col-span-7 liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-7 sm:p-9 shadow-lg relative overflow-hidden">
+          <div
+            className="lg:col-span-7 liquid-glass-card liquid-glass-refraction rounded-[40px] p-7 sm:p-9 shadow-2xl relative overflow-hidden select-none hover:scale-[1.008] transition-all duration-300"
+            data-config={JSON.stringify({
+              blurAmount: 0.27,
+              refraction: 2,
+              chromAberration: 0.205,
+              edgeHighlight: 0.59,
+              specular: 0.15,
+              fresnel: 1,
+              distortion: 0.08,
+              cornerRadius: 40,
+              zRadius: 40,
+              opacity: 1,
+              saturation: -0.25,
+              brightness: -0.23,
+              shadowOpacity: 0.3,
+              shadowSpread: 10,
+              bevelMode: 0,
+            })}
+            style={{
+              boxShadow:
+                "0 32px 64px -16px rgba(41, 39, 37, 0.22), 0 16px 32px -12px rgba(0, 0, 0, 0.12), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+            }}
+          >
             {/* Prismatic Caustics & Reflection Layers */}
             <div className="liquid-glass-caustic-border" aria-hidden="true" />
             <div className="liquid-glass-prism-ring" aria-hidden="true" />
@@ -161,10 +198,10 @@ export default function FeaturesSection() {
               <div className="flex items-center gap-4">
                 {/* Circular Biscuit Emblem matching card hero style */}
                 <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
-                  <current.icon className="w-5 h-5 text-[#24211E]" />
+                  <current.icon className="w-5 h-5 fill-[#24211E] text-[#24211E]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono tracking-wider text-[#8C7052]">
+                  <span className="text-[11px] font-mono tracking-wider text-[#8C7052] font-semibold">
                     دِيوَانُ الحِكَمِ الإِمْبِرَاطُورِيَّة
                   </span>
                   <h3 className="font-cinzel text-2xl font-bold text-[#24211E] mt-0.5">

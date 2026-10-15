@@ -40,73 +40,87 @@ export default function SpotlightRevealHero() {
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    // Mouse tracking: on mousemove store raw {x, y} in a ref
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+    // Initial render of mask
+    const updateMask = (xVal: number, yVal: number) => {
+      if (revealDivRef.current) {
+        const x = xVal.toFixed(1);
+        const y = yVal.toFixed(1);
+        const grad = `radial-gradient(${SPOTLIGHT_R}px circle at ${x}px ${y}px, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0.75) 60%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.12) 88%, rgba(255,255,255,0) 100%)`;
+        revealDivRef.current.style.webkitMaskImage = grad;
+        revealDivRef.current.style.maskImage = grad;
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    updateMask(smoothRef.current.x, smoothRef.current.y);
 
-    let animationFrameId: number;
+    // Respect user's motion preferences
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
 
-    // High-performance requestAnimationFrame loop running directly on GPU
+    let isRunning = false;
+    let animationFrameId: number | null = null;
+
+    // High-performance requestAnimationFrame loop running only while easing
     const loop = () => {
       const dx = mouseRef.current.x - smoothRef.current.x;
       const dy = mouseRef.current.y - smoothRef.current.y;
 
-      // Only perform work when smoothing is active
-      if (Math.abs(dx) > 0.05 || Math.abs(dy) > 0.05) {
-        // 1. Eases smooth ref toward mouse with factor 0.1
-        smoothRef.current.x += dx * 0.1;
-        smoothRef.current.y += dy * 0.1;
+      // Eases smooth ref toward mouse with factor 0.1
+      smoothRef.current.x += dx * 0.1;
+      smoothRef.current.y += dy * 0.1;
 
-        // 2. Compute normalized offset cx, cy using smooth coords
-        if (containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect();
-          if (rect.width > 0 && rect.height > 0) {
-            const cx = (smoothRef.current.x - rect.left) / rect.width - 0.5;
-            const cy = (smoothRef.current.y - rect.top) / rect.height - 0.5;
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          const cx = (smoothRef.current.x - rect.left) / rect.width - 0.5;
+          const cy = (smoothRef.current.y - rect.top) / rect.height - 0.5;
 
-            // 3. Ease gridOffset toward cx * 16 / cy * 16 with factor 0.06
-            gridOffsetRef.current.x += (cx * 16 - gridOffsetRef.current.x) * 0.06;
-            gridOffsetRef.current.y += (cy * 16 - gridOffsetRef.current.y) * 0.06;
+          gridOffsetRef.current.x += (cx * 16 - gridOffsetRef.current.x) * 0.06;
+          gridOffsetRef.current.y += (cy * 16 - gridOffsetRef.current.y) * 0.06;
 
-            // Direct GPU/DOM update for grid pattern offset
-            if (gridPatternRef.current) {
-              gridPatternRef.current.setAttribute("x", gridOffsetRef.current.x.toFixed(2));
-              gridPatternRef.current.setAttribute("y", gridOffsetRef.current.y.toFixed(2));
-            }
+          if (gridPatternRef.current) {
+            gridPatternRef.current.setAttribute("x", gridOffsetRef.current.x.toFixed(2));
+            gridPatternRef.current.setAttribute("y", gridOffsetRef.current.y.toFixed(2));
           }
-        }
-
-        // 4. GPU-accelerated radial-gradient mask (instant 60fps/120fps with zero toDataURL lag)
-        if (revealDivRef.current) {
-          const x = smoothRef.current.x.toFixed(1);
-          const y = smoothRef.current.y.toFixed(1);
-          const grad = `radial-gradient(${SPOTLIGHT_R}px circle at ${x}px ${y}px, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0.75) 60%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.12) 88%, rgba(255,255,255,0) 100%)`;
-          revealDivRef.current.style.webkitMaskImage = grad;
-          revealDivRef.current.style.maskImage = grad;
         }
       }
 
-      animationFrameId = requestAnimationFrame(loop);
+      updateMask(smoothRef.current.x, smoothRef.current.y);
+
+      // Continue loop only if still easing
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        animationFrameId = requestAnimationFrame(loop);
+      } else {
+        isRunning = false;
+        animationFrameId = null;
+      }
     };
 
-    // Initial render of mask
-    if (revealDivRef.current) {
-      const initX = smoothRef.current.x.toFixed(1);
-      const initY = smoothRef.current.y.toFixed(1);
-      const initGrad = `radial-gradient(${SPOTLIGHT_R}px circle at ${initX}px ${initY}px, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0.75) 60%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.12) 88%, rgba(255,255,255,0) 100%)`;
-      revealDivRef.current.style.webkitMaskImage = initGrad;
-      revealDivRef.current.style.maskImage = initGrad;
-    }
+    const startLoop = () => {
+      if (!isRunning) {
+        isRunning = true;
+        animationFrameId = requestAnimationFrame(loop);
+      }
+    };
 
-    animationFrameId = requestAnimationFrame(loop);
+    // Mouse tracking: on mousemove trigger smooth easing loop
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+      startLoop();
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, []);
 

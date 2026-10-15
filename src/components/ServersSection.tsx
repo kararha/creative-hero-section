@@ -209,6 +209,7 @@ export default function ServersSection() {
             <Search className="w-4 h-4 text-[#8C7052] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
+              aria-label="ابحث عن القلعة أو الحاكم"
               placeholder="ابْحَثْ عَنِ القَلْعَةِ أَوِ الحَاكِم..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -228,25 +229,45 @@ export default function ServersSection() {
                 <div
                   key={k.id}
                   onClick={() => setActiveKingdom(k)}
-                  className={`p-5 rounded-[26px] border transition-all duration-200 cursor-pointer flex flex-col justify-between relative overflow-hidden ${
+                  className={`p-5 rounded-[28px] sm:rounded-[32px] liquid-glass-card liquid-glass-refraction transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden select-none hover:scale-[1.02] ${
                     isSelected
-                      ? "liquid-glass-refraction border-[#B69A75] shadow-md -translate-y-0.5"
-                      : "bg-white/60 hover:bg-white/85 border-white/80 shadow-2xs"
+                      ? "ring-2 ring-[#B69A75] border-[#B69A75] shadow-xl -translate-y-0.5"
+                      : "border border-white/90 shadow-md hover:border-[#B69A75]/40"
                   }`}
+                  data-config={JSON.stringify({
+                    blurAmount: 0.27,
+                    refraction: 2,
+                    chromAberration: 0.205,
+                    edgeHighlight: 0.59,
+                    specular: 0.15,
+                    fresnel: 1,
+                    distortion: 0.08,
+                    cornerRadius: 30,
+                    zRadius: 30,
+                    opacity: 1,
+                    saturation: -0.25,
+                    brightness: -0.23,
+                    shadowOpacity: 0.3,
+                    shadowSpread: 10,
+                    bevelMode: 0,
+                  })}
+                  style={{
+                    boxShadow:
+                      "0 20px 40px -12px rgba(41, 39, 37, 0.16), 0 10px 20px -8px rgba(0, 0, 0, 0.08), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+                  }}
                 >
-                  {isSelected && (
-                    <>
-                      <div className="liquid-glass-caustic-border" aria-hidden="true" />
-                      <div className="liquid-glass-prism-ring" aria-hidden="true" />
-                    </>
-                  )}
+                  {/* Prismatic Rainbow Caustic & Prism Ring Layers */}
+                  <div className="liquid-glass-caustic-border" aria-hidden="true" />
+                  <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
                   <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-2.5">
-                      <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/70 text-[#8C7052] border border-white/80">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/70 text-[#8C7052] border border-white/90 font-semibold shadow-2xs">
                         {k.status}
                       </span>
-                      <div className="w-8 h-8 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-2xs">
-                        <Castle className="w-4 h-4 text-[#24211E]" />
+                      {/* Circular Biscuit Emblem Badge */}
+                      <div className="w-10 h-10 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs">
+                        <Castle className="w-5 h-5 fill-[#24211E] text-[#24211E]" />
                       </div>
                     </div>
                     <h3 className="font-cinzel text-base font-bold text-[#24211E] mb-1">
@@ -261,7 +282,7 @@ export default function ServersSection() {
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-[#292725]/10 flex items-center justify-between text-[11px] text-[#8C7052] relative z-10">
-                    <span className="font-medium">{k.regent}</span>
+                    <span className="font-semibold">{k.regent}</span>
                     <ArrowLeft className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -270,7 +291,30 @@ export default function ServersSection() {
           </div>
 
           {/* Dossier Card for Selected Kingdom */}
-          <div className="lg:col-span-5 liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-7 sm:p-8 shadow-lg flex flex-col justify-between relative overflow-hidden">
+          <div
+            className="lg:col-span-5 liquid-glass-card liquid-glass-refraction rounded-[40px] p-7 sm:p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden select-none hover:scale-[1.008] transition-all duration-300"
+            data-config={JSON.stringify({
+              blurAmount: 0.27,
+              refraction: 2,
+              chromAberration: 0.205,
+              edgeHighlight: 0.59,
+              specular: 0.15,
+              fresnel: 1,
+              distortion: 0.08,
+              cornerRadius: 40,
+              zRadius: 40,
+              opacity: 1,
+              saturation: -0.25,
+              brightness: -0.23,
+              shadowOpacity: 0.3,
+              shadowSpread: 10,
+              bevelMode: 0,
+            })}
+            style={{
+              boxShadow:
+                "0 32px 64px -16px rgba(41, 39, 37, 0.22), 0 16px 32px -12px rgba(0, 0, 0, 0.12), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+            }}
+          >
             {/* Prismatic Caustics & Refraction Ring */}
             <div className="liquid-glass-caustic-border" aria-hidden="true" />
             <div className="liquid-glass-prism-ring" aria-hidden="true" />
@@ -278,7 +322,7 @@ export default function ServersSection() {
             <div className="relative z-10">
               <div className="flex items-center justify-between pb-4 border-b border-[#292725]/10">
                 <div>
-                  <span className="text-[11px] font-mono text-[#8C7052] block">
+                  <span className="text-[11px] font-mono text-[#8C7052] font-semibold block">
                     {activeKingdom.year}
                   </span>
                   <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#24211E] mt-0.5">
@@ -287,7 +331,7 @@ export default function ServersSection() {
                 </div>
                 {/* Circular Biscuit Emblem */}
                 <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
-                  <Sparkles className="w-5 h-5 text-[#24211E]" />
+                  <Sparkles className="w-5 h-5 fill-[#24211E] text-[#24211E]" />
                 </div>
               </div>
 

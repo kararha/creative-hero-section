@@ -59,7 +59,28 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
       <div
-        className="relative w-full max-w-lg liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-6 sm:p-8 shadow-2xl text-right overflow-hidden border border-white/90"
+        className="relative w-full max-w-lg liquid-glass-card liquid-glass-refraction rounded-[40px] p-6 sm:p-8 shadow-2xl text-right overflow-hidden border border-white/90 select-none"
+        data-config={JSON.stringify({
+          blurAmount: 0.27,
+          refraction: 2,
+          chromAberration: 0.205,
+          edgeHighlight: 0.59,
+          specular: 0.15,
+          fresnel: 1,
+          distortion: 0.08,
+          cornerRadius: 40,
+          zRadius: 40,
+          opacity: 1,
+          saturation: -0.25,
+          brightness: -0.23,
+          shadowOpacity: 0.3,
+          shadowSpread: 10,
+          bevelMode: 0,
+        })}
+        style={{
+          boxShadow:
+            "0 32px 64px -16px rgba(41, 39, 37, 0.22), 0 16px 32px -12px rgba(0, 0, 0, 0.12), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+        }}
         role="dialog"
         aria-modal="true"
         aria-label="نِدَاءُ دِيوَانِ الحُرَّاس"

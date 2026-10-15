@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+.skills/
+.skills_temp/
+.aistudio/

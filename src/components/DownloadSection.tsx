@@ -110,39 +110,75 @@ export default function DownloadSection() {
                 key={p.id}
                 type="button"
                 onClick={() => setSelectedPlatform(p.id)}
-                className={`p-4 sm:p-5 rounded-[24px] border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2.5 relative overflow-hidden ${
+                className={`p-4 sm:p-5 rounded-[28px] text-center transition-all duration-300 cursor-pointer flex flex-col items-center justify-center gap-2.5 relative overflow-hidden liquid-glass-card liquid-glass-refraction select-none hover:scale-[1.02] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#B69A75] ${
                   isSelected
-                    ? "liquid-glass-refraction border-[#B69A75] shadow-md -translate-y-0.5"
-                    : "bg-white/60 hover:bg-white/85 border-white/80 shadow-2xs"
+                    ? "ring-2 ring-[#B69A75] border-[#B69A75] shadow-xl -translate-y-0.5"
+                    : "border border-white/90 shadow-md hover:border-[#B69A75]/40"
                 }`}
+                data-config={JSON.stringify({
+                  blurAmount: 0.27,
+                  refraction: 2,
+                  chromAberration: 0.205,
+                  edgeHighlight: 0.59,
+                  specular: 0.15,
+                  fresnel: 1,
+                  distortion: 0.08,
+                  cornerRadius: 28,
+                  zRadius: 28,
+                  opacity: 1,
+                  saturation: -0.25,
+                  brightness: -0.23,
+                  shadowOpacity: 0.3,
+                  shadowSpread: 10,
+                  bevelMode: 0,
+                })}
+                style={{
+                  boxShadow:
+                    "0 20px 40px -12px rgba(41, 39, 37, 0.16), 0 10px 20px -8px rgba(0, 0, 0, 0.08), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+                }}
               >
-                {isSelected && (
-                  <>
-                    <div className="liquid-glass-caustic-border" aria-hidden="true" />
-                    <div className="liquid-glass-prism-ring" aria-hidden="true" />
-                  </>
-                )}
+                {/* Prismatic Rainbow Caustic & Prism Ring Layers */}
+                <div className="liquid-glass-caustic-border" aria-hidden="true" />
+                <div className="liquid-glass-prism-ring" aria-hidden="true" />
+
                 {/* Circular Biscuit Emblem */}
-                <div
-                  className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors shadow-xs relative z-10 ${
-                    isSelected
-                      ? "bg-[#C4A88E] text-[#24211E]"
-                      : "bg-[#EAE4DC] text-[#786E64]"
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-full bg-[#C4A88E] flex items-center justify-center transition-colors shadow-xs relative z-10">
+                  <Icon className="w-5 h-5 fill-[#24211E] text-[#24211E]" />
                 </div>
                 <div className="font-cinzel text-xs sm:text-sm font-bold text-[#24211E] relative z-10">
                   {p.name}
                 </div>
-                <div className="text-[10px] text-[#7A7369] relative z-10">{p.sub}</div>
+                <div className="text-[10px] text-[#7A7369] relative z-10 font-mono">{p.sub}</div>
               </button>
             );
           })}
         </div>
 
         {/* Active Platform Download Details Box */}
-        <div className="liquid-glass-card liquid-glass-refraction rounded-[36px] sm:rounded-[40px] p-7 sm:p-10 shadow-lg max-w-3xl mx-auto relative overflow-hidden">
+        <div
+          className="liquid-glass-card liquid-glass-refraction rounded-[40px] p-7 sm:p-10 shadow-2xl max-w-3xl mx-auto relative overflow-hidden select-none hover:scale-[1.008] transition-all duration-300"
+          data-config={JSON.stringify({
+            blurAmount: 0.27,
+            refraction: 2,
+            chromAberration: 0.205,
+            edgeHighlight: 0.59,
+            specular: 0.15,
+            fresnel: 1,
+            distortion: 0.08,
+            cornerRadius: 40,
+            zRadius: 40,
+            opacity: 1,
+            saturation: -0.25,
+            brightness: -0.23,
+            shadowOpacity: 0.3,
+            shadowSpread: 10,
+            bevelMode: 0,
+          })}
+          style={{
+            boxShadow:
+              "0 32px 64px -16px rgba(41, 39, 37, 0.22), 0 16px 32px -12px rgba(0, 0, 0, 0.12), inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3)",
+          }}
+        >
           {/* Prismatic Caustics & Reflection Layers */}
           <div className="liquid-glass-caustic-border" aria-hidden="true" />
           <div className="liquid-glass-prism-ring" aria-hidden="true" />
@@ -151,7 +187,7 @@ export default function DownloadSection() {
             <div className="flex items-center gap-4 text-center sm:text-right">
               {/* Circular Biscuit Emblem */}
               <div className="w-14 h-14 rounded-full bg-[#C4A88E] flex items-center justify-center shadow-xs shrink-0">
-                <BookOpen className="w-7 h-7 text-[#24211E]" />
+                <BookOpen className="w-7 h-7 fill-[#24211E] text-[#24211E]" />
               </div>
               <div>
                 <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#24211E]">
